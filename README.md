@@ -4,11 +4,17 @@
 
 ## Configuration
 
+	- Java 11
+	- Maven
+	- Spring Boot 2.3.0
+
 ## Running App
+
+`$ mvn test`
 
 ## Testing
 
+`$ ./mvnw spring-boot:run`
 
 
-
-### Author : MorganCpn
+### Author : **_MorganCpn_**
