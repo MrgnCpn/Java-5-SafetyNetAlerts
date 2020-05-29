@@ -1,6 +1,8 @@
 # OC : Parcours Java / Project 5 ( SafetyNet Alerts )
+##### Author : **_MorganCpn_**
 
 ## Description
+Backend REST API server for SafetyNet Alert apps
 
 ## Configuration
 
@@ -15,6 +17,3 @@
 ## Testing
 
 `$ ./mvnw spring-boot:run`
-
-
-### Author : **_MorganCpn_**
