@@ -17,3 +17,7 @@ Backend REST API server for SafetyNet Alert apps
 ## Testing
 
 `$ ./mvnw spring-boot:run`
+
+## Logging File
+
+`/logs/SafetyNetAlert.log`
