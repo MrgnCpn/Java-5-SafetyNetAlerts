@@ -7,7 +7,7 @@ Backend REST API server for SafetyNet Alert apps
 ## Configuration
 
 	- Java 11
-	- Maven
+	- Maven 4.0.0
 	- Spring Boot 2.3.0
 
 ## Running App
