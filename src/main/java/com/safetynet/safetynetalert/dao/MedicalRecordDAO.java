@@ -5,10 +5,12 @@ import com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface;
 import com.safetynet.safetynetalert.models.MedicalRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalRecordDAO implements MedicalRecordDAOInterface {
@@ -35,6 +37,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     public MedicalRecordDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
         this.databaseConfig = databaseConfig;
+        this.allMedicalRecords = new ArrayList<>();
         loadData();
     }
 
@@ -94,6 +97,18 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
         JSONObject data = databaseConfig.getData();
+
+        JSONArray medicalRecords = (JSONArray) data.get("medicalrecords");
+
+        for (int i = 0; i < medicalRecords.size(); i++) {
+            JSONObject medicalRecord = (JSONObject) medicalRecords.get(i);
+
+            String birthdate = (String) medicalRecord.get("birthdate");
+            List<String> medications = (List<String>) medicalRecord.get("medications");
+            List<String> allergies = (List<String>) medicalRecord.get("allergies");
+
+            allMedicalRecords.add(new MedicalRecord(i, birthdate, medications, allergies));
+        }
 
         logger.info("All medical records are loaded from data");
         databaseConfig.closeConnection();

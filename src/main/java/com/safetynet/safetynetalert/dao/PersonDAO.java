@@ -5,6 +5,7 @@ import com.safetynet.safetynetalert.interfaces.PersonDAOInterface;
 import com.safetynet.safetynetalert.models.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -36,6 +37,7 @@ public class PersonDAO implements PersonDAOInterface {
      */
     public PersonDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
         this.databaseConfig = databaseConfig;
+        this.allPersons = new ArrayList<>();
         loadData();
     }
 
@@ -92,11 +94,24 @@ public class PersonDAO implements PersonDAOInterface {
     /**
      * Load data in allPersons in constructor
      * @throws IOException
-     * @throws ParseException
      */
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
         JSONObject data = databaseConfig.getData();
+
+        JSONArray persons = (JSONArray) data.get("persons");
+
+        for (int i = 0; i < persons.size(); i++) {
+            JSONObject person = (JSONObject) persons.get(i);
+            String firstName = (String) person.get("firstName");
+            String lastName = (String) person.get("lastName");
+            String address = (String) person.get("address");
+            String city = (String) person.get("city");
+            String zip = (String) person.get("zip");
+            String phone = (String) person.get("phone");
+            String email = (String) person.get("email");
+            allPersons.add(new Person(firstName, lastName, address, city, zip, phone, email));
+        }
 
         logger.info("All persons are loaded from data");
         databaseConfig.closeConnection();

@@ -5,10 +5,12 @@ import com.safetynet.safetynetalert.interfaces.StationDAOInterface;
 import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StationDAO implements StationDAOInterface {
@@ -35,6 +37,7 @@ public class StationDAO implements StationDAOInterface {
      */
     public StationDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
         this.databaseConfig = databaseConfig;
+        this.allStations = new ArrayList<>();
         loadData();
     }
 
@@ -87,13 +90,22 @@ public class StationDAO implements StationDAOInterface {
     }
 
     /**
-     * Load data in allSations in constructor
+     * Load data in allStations in constructor
      * @throws IOException
      * @throws ParseException
      */
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
         JSONObject data = databaseConfig.getData();
+
+        JSONArray stations = (JSONArray) data.get("stations");
+
+        for (int i = 0; i < stations.size(); i++) {
+            JSONObject station = (JSONObject) stations.get(i);
+            Integer number = (Integer) station.get("firstName");
+            String address = (String) station.get("lastName");
+            allStations.add(new Station(number, address));
+        }
 
         logger.info("All stations are loaded from data");
         databaseConfig.closeConnection();

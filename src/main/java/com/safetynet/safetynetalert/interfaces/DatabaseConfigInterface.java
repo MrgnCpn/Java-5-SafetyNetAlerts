@@ -1,5 +1,6 @@
 package com.safetynet.safetynetalert.interfaces;
 
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
