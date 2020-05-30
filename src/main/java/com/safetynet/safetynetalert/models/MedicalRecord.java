@@ -8,6 +8,13 @@ public class MedicalRecord {
     private List<String> medications;
     private List<String> allergies;
 
+    /**
+     * Constructor
+     * @param id
+     * @param birthdate
+     * @param medications
+     * @param allergies
+     */
     public MedicalRecord(Integer id, String birthdate, List<String> medications, List<String> allergies) {
         this.id = id;
         this.birthdate = birthdate;

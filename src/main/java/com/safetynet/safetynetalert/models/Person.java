@@ -10,8 +10,23 @@ public class Person {
     private String phone;
     private String email;
 
-    public Person(Integer id, String firstName, String lastName, String address, String city, String zip, String phone, String email) {
-        this.id = id;
+    /**
+     * Auto-increment index to set unique id
+     */
+    public static int index = 0;
+
+    /**
+     * Constructor
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param city
+     * @param zip
+     * @param phone
+     * @param email
+     */
+    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
+        this.id = index ++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

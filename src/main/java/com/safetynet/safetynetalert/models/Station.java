@@ -4,6 +4,11 @@ public class Station {
     private Integer number;
     private String address;
 
+    /**
+     * Constructor
+     * @param number
+     * @param address
+     */
     public Station(Integer number, String address) {
         this.number = number;
         this.address = address;
