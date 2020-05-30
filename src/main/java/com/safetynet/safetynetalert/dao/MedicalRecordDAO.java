@@ -46,7 +46,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     @Override
     public void setDatabaseConfig(DatabaseConfig dataBaseConfig) {
-
+        this.databaseConfig = dataBaseConfig;
     }
 
     /**
@@ -54,31 +54,42 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     @Override
     public MedicalRecord getMedicalRecord(Integer id) {
+        for (int i = 0; i < allMedicalRecords.size(); i++) {
+            if (allMedicalRecords.get(i).getId().equals(id)) {
+                return allMedicalRecords.get(i);
+            }
+        }
         return null;
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #getListMedicalRecords(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #getAllMedicalRecords()}
      */
     @Override
-    public List<MedicalRecord> getListMedicalRecords(String key, String value) {
-        return null;
+    public List<MedicalRecord> getAllMedicalRecords() {
+        return this.allMedicalRecords;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #addNewMedicalRecord(MedicalRecord)}
      */
     @Override
-    public void addNewMedicalRecord(MedicalRecord station) {
-
+    public void addNewMedicalRecord(MedicalRecord medicalRecord) {
+        this.allMedicalRecords.add(medicalRecord);
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #updateMedicalRecord(Integer)}
+     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #updateMedicalRecord(MedicalRecord)}
      */
     @Override
-    public void updateMedicalRecord(Integer id) {
-
+    public void updateMedicalRecord(MedicalRecord medicalRecord) {
+        for (int i = 0; i < allMedicalRecords.size(); i++) {
+            if (allMedicalRecords.get(i).getId().equals(medicalRecord.getId())) {
+                allMedicalRecords.get(i).setBirthdate(medicalRecord.getBirthdate());
+                allMedicalRecords.get(i).setMedications(medicalRecord.getMedications());
+                allMedicalRecords.get(i).setAllergies(medicalRecord.getAllergies());
+            }
+        }
     }
 
     /**
@@ -86,7 +97,12 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     @Override
     public void deleteMedicalRecord(Integer id) {
-
+        for (int i = 0; i < allMedicalRecords.size(); i++) {
+            if (allMedicalRecords.get(i).getId().equals(id)){
+               allMedicalRecords.remove(i);
+               break;
+            }
+        }
     }
 
     /**
@@ -96,21 +112,26 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
-        JSONObject data = databaseConfig.getData();
+        try {
+            JSONObject data = databaseConfig.getData();
 
-        JSONArray medicalRecords = (JSONArray) data.get("medicalrecords");
+            JSONArray medicalRecords = (JSONArray) data.get("medicalrecords");
 
-        for (int i = 0; i < medicalRecords.size(); i++) {
-            JSONObject medicalRecord = (JSONObject) medicalRecords.get(i);
+            for (int i = 0; i < medicalRecords.size(); i++) {
+                JSONObject medicalRecord = (JSONObject) medicalRecords.get(i);
 
-            String birthdate = (String) medicalRecord.get("birthdate");
-            List<String> medications = (List<String>) medicalRecord.get("medications");
-            List<String> allergies = (List<String>) medicalRecord.get("allergies");
+                String birthdate = (String) medicalRecord.get("birthdate");
+                List<String> medications = (List<String>) medicalRecord.get("medications");
+                List<String> allergies = (List<String>) medicalRecord.get("allergies");
 
-            allMedicalRecords.add(new MedicalRecord(i, birthdate, medications, allergies));
+                allMedicalRecords.add(new MedicalRecord(i, birthdate, medications, allergies));
+            }
+
+            logger.info("All medical records are loaded from data");
+        } catch (Exception e) {
+            logger.error("Data can't be loaded in MedicalRecordDAO : " + e);
         }
 
-        logger.info("All medical records are loaded from data");
         databaseConfig.closeConnection();
     }
 }

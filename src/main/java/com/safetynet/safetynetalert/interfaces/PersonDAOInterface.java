@@ -22,12 +22,10 @@ public interface PersonDAOInterface {
     Person getPerson(String firstName, String lastName);
 
     /**
-     * Get list of persons profiles choose by Key and value
-     * @param key
-     * @param value
-     * @return List of persons profiles
+     *  Get all persons profiles
+     * @return List of all persons
      */
-    List<Person> getListPersons(String key, String value);
+    List<Person> getAllPersons();
 
     /**
      * Add one profile to allPersons
@@ -37,10 +35,9 @@ public interface PersonDAOInterface {
 
     /**
      * Update one person profile in allPersons
-     * @param firstName
-     * @param lastName
+     * @param person
      */
-    void updatePerson(String firstName, String lastName);
+    void updatePerson(Person person);
 
     /**
      * Delete the profile of one person in allPersons

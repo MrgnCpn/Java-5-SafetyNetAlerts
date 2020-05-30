@@ -46,23 +46,42 @@ public class StationDAO implements StationDAOInterface {
      */
     @Override
     public void setDatabaseConfig(DatabaseConfig dataBaseConfig) {
-
+        this.databaseConfig = dataBaseConfig;
     }
 
+
     /**
-     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getStation(Integer)}
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getStationByNumber(Integer)}
      */
     @Override
-    public Station getStation(Integer number) {
+    public Station getStationByNumber(Integer number) {
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getNumber().equals(number)) {
+                return allStations.get(i);
+            }
+        }
         return null;
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getListStations(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getStationByAddress(String)}
      */
     @Override
-    public List<Station> getListStations(String key, String value) {
+    public Station getStationByAddress(String address) {
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getAddress().equals(address)) {
+                return allStations.get(i);
+            }
+        }
         return null;
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getAllStations()}
+     */
+    @Override
+    public List<Station> getAllStations() {
+        return this.allStations;
     }
 
     /**
@@ -70,7 +89,7 @@ public class StationDAO implements StationDAOInterface {
      */
     @Override
     public void addNewStation(Station station) {
-
+        this.allStations.add(station);
     }
 
     /**
@@ -78,15 +97,38 @@ public class StationDAO implements StationDAOInterface {
      */
     @Override
     public void updateStation(Station station) {
-
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getNumber().equals(station.getNumber())) {
+                allStations.get(i).setAddress(station.getAddress());
+                break;
+            }
+        }
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStation(Station)}
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByNumber(Integer)}
      */
     @Override
-    public void deleteStation(Station station) {
+    public void deleteStationByNumber(Integer number) {
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getNumber().equals(number)) {
+                allStations.remove(i);
+                break;
+            }
+        }
+    }
 
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByAddress(String)}
+     */
+    @Override
+    public void deleteStationByAddress(String address) {
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getAddress().equals(address)) {
+                allStations.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -96,18 +138,22 @@ public class StationDAO implements StationDAOInterface {
      */
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
-        JSONObject data = databaseConfig.getData();
+        try {
+            JSONObject data = databaseConfig.getData();
 
-        JSONArray stations = (JSONArray) data.get("stations");
+            JSONArray stations = (JSONArray) data.get("stations");
 
-        for (int i = 0; i < stations.size(); i++) {
-            JSONObject station = (JSONObject) stations.get(i);
-            Integer number = (Integer) station.get("firstName");
-            String address = (String) station.get("lastName");
-            allStations.add(new Station(number, address));
+            for (int i = 0; i < stations.size(); i++) {
+                JSONObject station = (JSONObject) stations.get(i);
+                Integer number = (Integer) station.get("firstName");
+                String address = (String) station.get("lastName");
+                allStations.add(new Station(number, address));
+            }
+
+            logger.info("All stations are loaded from data");
+        } catch (Exception e) {
+            logger.error("Data can't be loaded in StationDAO : " + e);
         }
-
-        logger.info("All stations are loaded from data");
         databaseConfig.closeConnection();
     }
 }

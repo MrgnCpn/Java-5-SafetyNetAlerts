@@ -1,6 +1,7 @@
 package com.safetynet.safetynetalert.interfaces;
 
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
+import com.safetynet.safetynetalert.models.Person;
 import com.safetynet.safetynetalert.models.Station;
 
 import java.util.List;
@@ -18,15 +19,20 @@ public interface StationDAOInterface {
      * @param number
      * @return One Station
      */
-    Station getStation(Integer number);
+    Station getStationByNumber(Integer number);
 
     /**
-     * Get list of stations choose by Key and value
-     * @param key
-     * @param value
-     * @return list of stations
+     * Get one station from allStations choose by station address
+     * @param address
+     * @return One Station
      */
-    List<Station> getListStations(String key, String value);
+    Station getStationByAddress(String address);
+
+    /**
+     *  Get all stations
+     * @return List of all stations
+     */
+    List<Station> getAllStations();
 
     /**
      * Add one new station
@@ -42,7 +48,13 @@ public interface StationDAOInterface {
 
     /**
      * Delete the station in allStations
-     * @param station
+     * @param number
      */
-    void deleteStation(Station station);
+    void deleteStationByNumber(Integer number);
+
+    /**
+     * Delete the station in allStations
+     * @param address
+     */
+    void deleteStationByAddress(String address);
 }

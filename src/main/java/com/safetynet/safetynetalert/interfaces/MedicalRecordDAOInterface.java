@@ -2,6 +2,7 @@ package com.safetynet.safetynetalert.interfaces;
 
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.models.MedicalRecord;
+import com.safetynet.safetynetalert.models.Station;
 
 import java.util.List;
 
@@ -22,25 +23,22 @@ public interface MedicalRecordDAOInterface {
     MedicalRecord getMedicalRecord(Integer id);
 
     /**
-     * Get list of medical records choose by Key and value
-     * @param key
-     * @param value
-     * @return List of medical records
+     *  Get all medicalRecords
+     * @return List of all medicalRecords
      */
-    List<MedicalRecord> getListMedicalRecords(String key, String value);
-
+    List<MedicalRecord> getAllMedicalRecords();
 
     /**
      * Add one new medical record
-     * @param station
+     * @param medicalRecord
      */
-    void addNewMedicalRecord(MedicalRecord station);
+    void addNewMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Update one medical record in allMedicalRecords
-     * @param id
+     * @param medicalRecord
      */
-    void updateMedicalRecord(Integer id);
+    void updateMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Delete the medical record in allMedicalRecords

@@ -54,17 +54,21 @@ public class PersonDAO implements PersonDAOInterface {
      */
     @Override
     public Person getPerson(String firstName, String lastName) {
-        Person person = null;
-        return person;
+        for (int i = 0; i < allPersons.size(); i++) {
+            if ((allPersons.get(i).getFirstName().equals(firstName))
+                    && (allPersons.get(i).getLastName().equals(lastName))) {
+                return allPersons.get(i);
+            }
+        }
+        return null;
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getListPersons(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getAllPersons()}
      */
     @Override
-    public List<Person> getListPersons(String key, String value) {
-        List<Person> persons = new ArrayList<Person>();
-        return persons;
+    public List<Person> getAllPersons() {
+        return this.allPersons;
     }
 
     /**
@@ -72,15 +76,26 @@ public class PersonDAO implements PersonDAOInterface {
      */
     @Override
     public void addNewPerson(Person person) {
-
+        this.allPersons.add(person);
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #updatePerson(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #updatePerson(Person)}
      */
     @Override
-    public void updatePerson(String firstName, String lastName) {
-
+    public void updatePerson(Person person) {
+        for (int i = 0; i < allPersons.size(); i++) {
+            if ((allPersons.get(i).getFirstName().equals(person.getFirstName()))
+                    && (allPersons.get(i).getLastName().equals(person.getLastName()))
+            ) {
+                allPersons.get(i).setAddress(person.getAddress());
+                allPersons.get(i).setCity(person.getCity());
+                allPersons.get(i).setEmail(person.getEmail());
+                allPersons.get(i).setPhone(person.getPhone());
+                allPersons.get(i).setZip(person.getZip());
+                break;
+            }
+        }
     }
 
     /**
@@ -88,7 +103,12 @@ public class PersonDAO implements PersonDAOInterface {
      */
     @Override
     public void deletePerson(String firstName, String lastName) {
-
+        for (int i = 0; i < allPersons.size(); i++) {
+            if ((allPersons.get(i).getFirstName().equals(firstName)) && (allPersons.get(i).getLastName().equals(lastName))){
+                allPersons.remove(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -97,23 +117,27 @@ public class PersonDAO implements PersonDAOInterface {
      */
     private void loadData() throws IOException, ParseException {
         databaseConfig.openConnection();
-        JSONObject data = databaseConfig.getData();
+        try {
+            JSONObject data = databaseConfig.getData();
 
-        JSONArray persons = (JSONArray) data.get("persons");
+            JSONArray persons = (JSONArray) data.get("persons");
 
-        for (int i = 0; i < persons.size(); i++) {
-            JSONObject person = (JSONObject) persons.get(i);
-            String firstName = (String) person.get("firstName");
-            String lastName = (String) person.get("lastName");
-            String address = (String) person.get("address");
-            String city = (String) person.get("city");
-            String zip = (String) person.get("zip");
-            String phone = (String) person.get("phone");
-            String email = (String) person.get("email");
-            allPersons.add(new Person(firstName, lastName, address, city, zip, phone, email));
+            for (int i = 0; i < persons.size(); i++) {
+                JSONObject person = (JSONObject) persons.get(i);
+                String firstName = (String) person.get("firstName");
+                String lastName = (String) person.get("lastName");
+                String address = (String) person.get("address");
+                String city = (String) person.get("city");
+                String zip = (String) person.get("zip");
+                String phone = (String) person.get("phone");
+                String email = (String) person.get("email");
+                allPersons.add(new Person(firstName, lastName, address, city, zip, phone, email));
+            }
+
+            logger.info("All persons are loaded from data");
+        } catch (Exception e) {
+            logger.error("Data can't be loaded in PersonDAO : " + e);
         }
-
-        logger.info("All persons are loaded from data");
         databaseConfig.closeConnection();
     }
 }
