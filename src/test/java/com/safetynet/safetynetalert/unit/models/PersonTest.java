@@ -1,5 +1,6 @@
-package com.safetynet.safetynetalert.models;
+package com.safetynet.safetynetalert.unit.models;
 
+import com.safetynet.safetynetalert.models.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;

@@ -1,5 +1,6 @@
-package com.safetynet.safetynetalert.models;
+package com.safetynet.safetynetalert.unit.models;
 
+import com.safetynet.safetynetalert.models.MedicalRecord;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MedicalRecordTest {
     private MedicalRecord medicalRecord;
@@ -28,7 +28,7 @@ class MedicalRecordTest {
         medicalRecord = new MedicalRecord(1, "03/06/1984", medication, allergies);
     }
 
-    @Tag("StationTest")
+    @Tag("MedicalRecordTest")
     @Test
     void testGetter(){
         assertThat(medicalRecord.getId()).isEqualTo(1);
@@ -37,7 +37,7 @@ class MedicalRecordTest {
         assertThat(medicalRecord.getAllergies()).isEqualTo(allergies);
     }
 
-    @Tag("StationTest")
+    @Tag("MedicalRecordTest")
     @Test
     void testGetterAndSetter(){
         List<String> newMedication = new ArrayList<>();
@@ -56,7 +56,7 @@ class MedicalRecordTest {
         assertThat(medicalRecord.getAllergies()).isEqualTo(newAllergies);
     }
 
-    @Tag("StationTest")
+    @Tag("MedicalRecordTest")
     @Test
     void testSetAsNull(){
         medicalRecord.setId(0);
