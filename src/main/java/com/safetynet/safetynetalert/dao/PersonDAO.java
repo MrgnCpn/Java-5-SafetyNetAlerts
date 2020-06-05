@@ -50,13 +50,26 @@ public class PersonDAO implements PersonDAOInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPerson(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonByName(String, String)}
      */
     @Override
-    public Person getPerson(String firstName, String lastName) {
+    public Person getPersonByName(String firstName, String lastName) {
         for (int i = 0; i < allPersons.size(); i++) {
             if ((allPersons.get(i).getFirstName().equals(firstName))
                     && (allPersons.get(i).getLastName().equals(lastName))) {
+                return allPersons.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonById(Integer)}
+     */
+    @Override
+    public Person getPersonById(Integer id) {
+        for (int i = 0; i < allPersons.size(); i++) {
+            if (allPersons.get(i).getId().equals(id)) {
                 return allPersons.get(i);
             }
         }
@@ -75,15 +88,39 @@ public class PersonDAO implements PersonDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #addNewPerson(Person)}
      */
     @Override
-    public void addNewPerson(Person person) {
-        this.allPersons.add(person);
+    public Boolean addNewPerson(Person person) {
+        Boolean personAdded = false;
+
+        if (
+                (person.getId() > 0)
+                && !person.getFirstName().isEmpty()
+                && !person.getLastName().isEmpty()
+                && !person.getAddress().isEmpty()
+                && !person.getCity().isEmpty()
+                && !person.getZip().isEmpty()
+                && !person.getEmail().isEmpty()
+                && !person.getEmail().isEmpty()
+                && !person.getPhone().isEmpty()) {
+            this.allPersons.add(person);
+            personAdded = true;
+        }
+
+        if (personAdded) {
+            logger.info("Person profile has been added");
+        } else {
+            logger.error("Person isn't complete and could not be added");
+        }
+
+        return personAdded;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #updatePerson(Person)}
      */
     @Override
-    public void updatePerson(Person person) {
+    public Boolean updatePerson(Person person) {
+        Boolean personUpdated = false;
+
         for (int i = 0; i < allPersons.size(); i++) {
             if ((allPersons.get(i).getFirstName().equals(person.getFirstName()))
                     && (allPersons.get(i).getLastName().equals(person.getLastName()))
@@ -93,22 +130,42 @@ public class PersonDAO implements PersonDAOInterface {
                 allPersons.get(i).setEmail(person.getEmail());
                 allPersons.get(i).setPhone(person.getPhone());
                 allPersons.get(i).setZip(person.getZip());
+                personUpdated = true;
                 break;
             }
         }
+
+        if (personUpdated) {
+            logger.info("Person profile has been updated");
+        } else {
+            logger.error("Person doesn't exist in persons list and could not be updated");
+        }
+
+        return personUpdated;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #deletePerson(String, String)}
      */
     @Override
-    public void deletePerson(String firstName, String lastName) {
+    public Boolean deletePerson(String firstName, String lastName) {
+        Boolean personDeleted = false;
+
         for (int i = 0; i < allPersons.size(); i++) {
             if ((allPersons.get(i).getFirstName().equals(firstName)) && (allPersons.get(i).getLastName().equals(lastName))){
                 allPersons.remove(i);
+                personDeleted = true;
                 break;
             }
         }
+
+        if (personDeleted) {
+            logger.info("Person profile has been deleted");
+        } else {
+            logger.error("Person doesn't exist in persons list and could not be deleted");
+        }
+
+        return personDeleted;
     }
 
     /**
@@ -131,7 +188,7 @@ public class PersonDAO implements PersonDAOInterface {
                 String zip = (String) person.get("zip");
                 String phone = (String) person.get("phone");
                 String email = (String) person.get("email");
-                allPersons.add(new Person(firstName, lastName, address, city, zip, phone, email));
+                allPersons.add(new Person(allPersons.size() + 1, firstName, lastName, address, city, zip, phone, email));
             }
 
             logger.info("All persons are loaded from data");

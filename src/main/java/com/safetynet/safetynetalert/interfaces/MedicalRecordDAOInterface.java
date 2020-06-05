@@ -32,17 +32,17 @@ public interface MedicalRecordDAOInterface {
      * Add one new medical record
      * @param medicalRecord
      */
-    void addNewMedicalRecord(MedicalRecord medicalRecord);
+    Boolean addNewMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Update one medical record in allMedicalRecords
      * @param medicalRecord
      */
-    void updateMedicalRecord(MedicalRecord medicalRecord);
+    Boolean updateMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Delete the medical record in allMedicalRecords
      * @param id
      */
-    void deleteMedicalRecord(Integer id);
+    Boolean deleteMedicalRecord(Integer id);
 }

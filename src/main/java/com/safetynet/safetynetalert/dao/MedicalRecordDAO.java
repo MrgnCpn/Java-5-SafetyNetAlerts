@@ -25,6 +25,11 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     private DatabaseConfig databaseConfig;
 
     /**
+     *
+     */
+    private PersonDAO personDAO;
+
+    /**
      * List of all medical records from database
      */
     private List<MedicalRecord> allMedicalRecords;
@@ -35,8 +40,9 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @throws IOException
      * @throws ParseException
      */
-    public MedicalRecordDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
+    public MedicalRecordDAO(DatabaseConfig databaseConfig, PersonDAO personDAO) throws IOException, ParseException {
         this.databaseConfig = databaseConfig;
+        this.personDAO = personDAO;
         this.allMedicalRecords = new ArrayList<>();
         loadData();
     }
@@ -74,35 +80,71 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #addNewMedicalRecord(MedicalRecord)}
      */
     @Override
-    public void addNewMedicalRecord(MedicalRecord medicalRecord) {
-        this.allMedicalRecords.add(medicalRecord);
+    public Boolean addNewMedicalRecord(MedicalRecord medicalRecord) {
+        Boolean medicalRecordAdded = false;
+
+        if (personDAO.getPersonById(medicalRecord.getId()) != null) {
+            this.allMedicalRecords.add(medicalRecord);
+            medicalRecordAdded =  true;
+        }
+
+        if(medicalRecordAdded){
+            logger.info("Medical record has been added");
+        } else {
+            logger.error("The medical record of person n° " + medicalRecord.getId() + ", born on " + medicalRecord.getBirthdate() + " does not correspond to an existing profile");
+        }
+
+        return medicalRecordAdded;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #updateMedicalRecord(MedicalRecord)}
      */
     @Override
-    public void updateMedicalRecord(MedicalRecord medicalRecord) {
+    public Boolean updateMedicalRecord(MedicalRecord medicalRecord) {
+        Boolean medicalRecordUpdated = false;
+
         for (int i = 0; i < allMedicalRecords.size(); i++) {
             if (allMedicalRecords.get(i).getId().equals(medicalRecord.getId())) {
                 allMedicalRecords.get(i).setBirthdate(medicalRecord.getBirthdate());
                 allMedicalRecords.get(i).setMedications(medicalRecord.getMedications());
                 allMedicalRecords.get(i).setAllergies(medicalRecord.getAllergies());
+                medicalRecordUpdated = true;
+                break;
             }
         }
+
+        if (medicalRecordUpdated) {
+            logger.info("Medical record informations have been updated");
+        } else {
+            logger.error("Medical record doesn't exist in medical records list and could not be updated");
+        }
+
+        return medicalRecordUpdated;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #deleteMedicalRecord(Integer)}
      */
     @Override
-    public void deleteMedicalRecord(Integer id) {
+    public Boolean deleteMedicalRecord(Integer id) {
+        Boolean medicalRecordDeleted = false;
+
         for (int i = 0; i < allMedicalRecords.size(); i++) {
             if (allMedicalRecords.get(i).getId().equals(id)){
                allMedicalRecords.remove(i);
+                medicalRecordDeleted = true;
                break;
             }
         }
+
+        if (medicalRecordDeleted) {
+            logger.info("Medical record have been deleted");
+        } else {
+            logger.error("Medical record doesn't exist in medical records list and could not be deleted");
+        }
+
+        return medicalRecordDeleted;
     }
 
     /**
@@ -120,13 +162,19 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
             for (int i = 0; i < medicalRecords.size(); i++) {
                 JSONObject medicalRecord = (JSONObject) medicalRecords.get(i);
 
+                String firstName = (String) medicalRecord.get("firstName");
+                String lastName = (String) medicalRecord.get("lastName");
                 String birthdate = (String) medicalRecord.get("birthdate");
-                List<String> medications = (List<String>) medicalRecord.get("medications");
-                List<String> allergies = (List<String>) medicalRecord.get("allergies");
 
-                allMedicalRecords.add(new MedicalRecord(i, birthdate, medications, allergies));
+                if (personDAO.getPersonByName(firstName, lastName) != null) {
+                    List<String> medications = (List<String>) medicalRecord.get("medications");
+                    List<String> allergies = (List<String>) medicalRecord.get("allergies");
+
+                    allMedicalRecords.add(new MedicalRecord(personDAO.getPersonByName(firstName, lastName).getId(), birthdate, medications, allergies));
+                } else {
+                    logger.error("The medical file of " + firstName + " " + lastName + ", born on " + birthdate + " does not correspond to an existing profile");
+                }
             }
-
             logger.info("All medical records are loaded from data");
         } catch (Exception e) {
             logger.error("Data can't be loaded in MedicalRecordDAO : " + e);

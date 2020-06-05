@@ -13,12 +13,13 @@ class PersonTest {
 
     @BeforeEach
     void initTest(){
-        person = new Person("John", "Smith", "1509 Culver St", "Cluver", "97451", "841-874-6512", "jsmith@email.com");
+        person = new Person(1, "John", "Smith", "1509 Culver St", "Cluver", "97451", "841-874-6512", "jsmith@email.com");
     }
 
     @Tag("PersonTest")
     @Test
     void testGetter(){
+        assertThat(person.getId()).isEqualTo(1);
         assertThat(person.getFirstName()).isEqualTo("John");
         assertThat(person.getLastName()).isEqualTo("Smith");
         assertThat(person.getAddress()).isEqualTo("1509 Culver St");
@@ -31,6 +32,7 @@ class PersonTest {
     @Tag("PersonTest")
     @Test
     void testGetterAndSetter(){
+        person.setId(10);
         person.setFirstName("Ron");
         person.setLastName("Peters");
         person.setAddress("112 Steppes Pl");
@@ -39,6 +41,7 @@ class PersonTest {
         person.setPhone("841-874-8888");
         person.setEmail("rpeters@email.com");
 
+        assertThat(person.getId()).isEqualTo(10);
         assertThat(person.getFirstName()).isEqualTo("Ron");
         assertThat(person.getLastName()).isEqualTo("Peters");
         assertThat(person.getAddress()).isEqualTo("112 Steppes Pl");
@@ -51,6 +54,7 @@ class PersonTest {
     @Tag("PersonTest")
     @Test
     void testSetAsNull(){
+        person.setId(0);
         person.setFirstName("");
         person.setLastName("");
         person.setAddress("");
@@ -59,6 +63,7 @@ class PersonTest {
         person.setPhone("");
         person.setEmail("");
 
+        assertThat(person.getId()).isEqualTo(0);
         assertThat(person.getFirstName()).isEmpty();
         assertThat(person.getLastName()).isEmpty();
         assertThat(person.getAddress()).isEmpty();

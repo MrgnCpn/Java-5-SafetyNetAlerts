@@ -11,11 +11,6 @@ public class Person {
     private String email;
 
     /**
-     * Auto-increment index to set unique id
-     */
-    public static int index = 0;
-
-    /**
      * Constructor
      * @param firstName
      * @param lastName
@@ -25,8 +20,8 @@ public class Person {
      * @param phone
      * @param email
      */
-    public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
-        this.id = index ++;
+    public Person(Integer id, String firstName, String lastName, String address, String city, String zip, String phone, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

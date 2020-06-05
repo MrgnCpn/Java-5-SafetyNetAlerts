@@ -17,9 +17,9 @@ public interface StationDAOInterface {
     /**
      * Get one station from allStations choose by station number
      * @param number
-     * @return One Station
+     * @return List of Stations
      */
-    Station getStationByNumber(Integer number);
+    List<Station> getStationByNumber(Integer number);
 
     /**
      * Get one station from allStations choose by station address
@@ -38,23 +38,18 @@ public interface StationDAOInterface {
      * Add one new station
      * @param station
      */
-    void addNewStation(Station station);
+    Boolean addNewStation(Station station);
 
     /**
      * Update one station in allStations
      * @param station
      */
-    void updateStation(Station station);
+    Boolean updateStation(Station station);
 
-    /**
-     * Delete the station in allStations
-     * @param number
-     */
-    void deleteStationByNumber(Integer number);
 
     /**
      * Delete the station in allStations
      * @param address
      */
-    void deleteStationByAddress(String address);
+    Boolean deleteStationByAddress(String address);
 }

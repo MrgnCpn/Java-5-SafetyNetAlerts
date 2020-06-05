@@ -19,7 +19,14 @@ public interface PersonDAOInterface {
      * @param lastName
      * @return One person profile
      */
-    Person getPerson(String firstName, String lastName);
+    Person getPersonByName(String firstName, String lastName);
+
+    /**
+     * Get one person profile from allPersons choose by if-d
+     * @param id
+     * @return One person profile
+     */
+    Person getPersonById(Integer id);
 
     /**
      *  Get all persons profiles
@@ -31,18 +38,18 @@ public interface PersonDAOInterface {
      * Add one profile to allPersons
      * @param person
      */
-    void addNewPerson(Person person);
+    Boolean addNewPerson(Person person);
 
     /**
      * Update one person profile in allPersons
      * @param person
      */
-    void updatePerson(Person person);
+    Boolean updatePerson(Person person);
 
     /**
      * Delete the profile of one person in allPersons
      * @param firstName
      * @param lastName
      */
-    void deletePerson(String firstName, String lastName);
+    Boolean deletePerson(String firstName, String lastName);
 }

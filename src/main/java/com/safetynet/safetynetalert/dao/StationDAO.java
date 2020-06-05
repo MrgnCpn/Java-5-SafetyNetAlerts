@@ -54,13 +54,14 @@ public class StationDAO implements StationDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #getStationByNumber(Integer)}
      */
     @Override
-    public Station getStationByNumber(Integer number) {
+    public List<Station> getStationByNumber(Integer number) {
+        List<Station> listOfStation = new ArrayList<>();
         for (int i = 0; i < allStations.size(); i++) {
             if (allStations.get(i).getNumber().equals(number)) {
-                return allStations.get(i);
+                listOfStation.add(allStations.get(i));
             }
         }
-        return null;
+        return listOfStation;
     }
 
     /**
@@ -88,47 +89,73 @@ public class StationDAO implements StationDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #addNewStation(Station)}
      */
     @Override
-    public void addNewStation(Station station) {
-        this.allStations.add(station);
+    public Boolean addNewStation(Station station) {
+        Boolean stationAdded = false;
+
+        if (
+                (station.getNumber() > 0)
+                && !station.getAddress().isEmpty()
+        ) {
+            this.allStations.add(station);
+            stationAdded = true;
+        }
+
+
+        if (stationAdded) {
+            logger.info("Station has been added");
+        } else {
+            logger.error("Station informations aren't complete and could not be added");
+        }
+
+        return stationAdded;
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #updateStation(Station)}
      */
     @Override
-    public void updateStation(Station station) {
+    public Boolean updateStation(Station station) {
+        Boolean stationUpdated = false;
+
         for (int i = 0; i < allStations.size(); i++) {
-            if (allStations.get(i).getNumber().equals(station.getNumber())) {
-                allStations.get(i).setAddress(station.getAddress());
+            if (allStations.get(i).getAddress().equals(station.getAddress())) {
+                allStations.get(i).setNumber(station.getNumber());
+                stationUpdated = true;
                 break;
             }
         }
-    }
 
-    /**
-     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByNumber(Integer)}
-     */
-    @Override
-    public void deleteStationByNumber(Integer number) {
-        for (int i = 0; i < allStations.size(); i++) {
-            if (allStations.get(i).getNumber().equals(number)) {
-                allStations.remove(i);
-                break;
-            }
+        if (stationUpdated) {
+            logger.info("Station informations have been updated");
+        } else {
+            logger.error("Station doesn't exist in stations list and could not be updated");
         }
+
+        return stationUpdated;
     }
 
-    /**
+   /**
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByAddress(String)}
      */
     @Override
-    public void deleteStationByAddress(String address) {
+    public Boolean deleteStationByAddress(String address) {
+        Boolean stationDeleted = false;
+
         for (int i = 0; i < allStations.size(); i++) {
             if (allStations.get(i).getAddress().equals(address)) {
                 allStations.remove(i);
+                stationDeleted = true;
                 break;
             }
         }
+
+        if (stationDeleted) {
+            logger.info("Station has been deleted");
+        } else {
+            logger.error("Station doesn't exist in stations list and could not be deleted");
+        }
+
+        return stationDeleted;
     }
 
     /**
@@ -141,12 +168,12 @@ public class StationDAO implements StationDAOInterface {
         try {
             JSONObject data = databaseConfig.getData();
 
-            JSONArray stations = (JSONArray) data.get("stations");
+            JSONArray stations = (JSONArray) data.get("firestations");
 
             for (int i = 0; i < stations.size(); i++) {
                 JSONObject station = (JSONObject) stations.get(i);
-                Integer number = (Integer) station.get("firstName");
-                String address = (String) station.get("lastName");
+                Integer number = Integer.parseInt((String) station.get("station"));
+                String address = (String) station.get("address");
                 allStations.add(new Station(number, address));
             }
 
