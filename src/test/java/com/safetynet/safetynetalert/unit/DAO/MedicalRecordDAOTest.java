@@ -51,7 +51,6 @@ class MedicalRecordDAOTest {
         data.append("{ \"address\":\"748 Townings Dr\", \"station\":\"3\" }],");
         data.append("\"medicalrecords\": [");
         data.append("{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1984\", \"medications\":[\"aznol:350mg\", \"hydrapermazol:100mg\"], \"allergies\":[\"nillacilan\"] },");
-        data.append("{ \"firstName\":\"Reginold\", \"lastName\":\"Walker\", \"birthdate\":\"08/30/1979\", \"medications\":[\"thradox:700mg\"], \"allergies\":[\"illisoxian\"] },");
         data.append("{ \"firstName\":\"Jacob\", \"lastName\":\"Boyd\", \"birthdate\":\"03/06/1989\", \"medications\":[\"pharmacol:5000mg\", \"terazine:10mg\", \"noznazol:250mg\"], \"allergies\":[] },");
         data.append("{ \"firstName\":\"Tenley\", \"lastName\":\"Boyd\", \"birthdate\":\"02/18/2012\", \"medications\":[], \"allergies\":[\"peanut\"] },]}");
     }

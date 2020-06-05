@@ -61,33 +61,34 @@ class PersonDAOTest {
     @Tag("PersonDAOTest")
     @Test
     void getPersonByName() {
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd")).isInstanceOf(Person.class);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getId()).isEqualTo(2);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getFirstName()).isEqualTo("Jacob");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getLastName()).isEqualTo("Boyd");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getAddress()).isEqualTo("1509 Culver St");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getCity()).isEqualTo("Culver");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getZip()).isEqualTo("97451");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getEmail()).isEqualTo("drk@email.com");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getPhone()).isEqualTo("841-874-6513");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd")).isInstanceOf(List.class);
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").size()).isEqualTo(1);
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getId()).isEqualTo(2);
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getFirstName()).isEqualTo("Jacob");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getLastName()).isEqualTo("Boyd");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getAddress()).isEqualTo("1509 Culver St");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getCity()).isEqualTo("Culver");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getZip()).isEqualTo("97451");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getEmail()).isEqualTo("drk@email.com");
+        assertThat(personDAO.getPersonsByName("Jacob", "Boyd").get(0).getPhone()).isEqualTo("841-874-6513");
 
-        assertThat(personDAO.getPersonByName("John", "Smith")).isNull();
+        assertThat(personDAO.getPersonsByName("John", "Smith")).isEmpty();
     }
 
     @Tag("PersonDAOTest")
     @Test
     void getPersonById() {
-        assertThat(personDAO.getPersonById(2)).isInstanceOf(Person.class);
-        assertThat(personDAO.getPersonById(2).getId()).isEqualTo(2);
-        assertThat(personDAO.getPersonById(2).getFirstName()).isEqualTo("Jacob");
-        assertThat(personDAO.getPersonById(2).getLastName()).isEqualTo("Boyd");
-        assertThat(personDAO.getPersonById(2).getAddress()).isEqualTo("1509 Culver St");
-        assertThat(personDAO.getPersonById(2).getCity()).isEqualTo("Culver");
-        assertThat(personDAO.getPersonById(2).getZip()).isEqualTo("97451");
-        assertThat(personDAO.getPersonById(2).getEmail()).isEqualTo("drk@email.com");
-        assertThat(personDAO.getPersonById(2).getPhone()).isEqualTo("841-874-6513");
+        assertThat(personDAO.getPersonsById(2)).isInstanceOf(Person.class);
+        assertThat(personDAO.getPersonsById(2).getId()).isEqualTo(2);
+        assertThat(personDAO.getPersonsById(2).getFirstName()).isEqualTo("Jacob");
+        assertThat(personDAO.getPersonsById(2).getLastName()).isEqualTo("Boyd");
+        assertThat(personDAO.getPersonsById(2).getAddress()).isEqualTo("1509 Culver St");
+        assertThat(personDAO.getPersonsById(2).getCity()).isEqualTo("Culver");
+        assertThat(personDAO.getPersonsById(2).getZip()).isEqualTo("97451");
+        assertThat(personDAO.getPersonsById(2).getEmail()).isEqualTo("drk@email.com");
+        assertThat(personDAO.getPersonsById(2).getPhone()).isEqualTo("841-874-6513");
 
-        assertThat(personDAO.getPersonById(50)).isNull();
+        assertThat(personDAO.getPersonsById(50)).isNull();
     }
 
     @Tag("PersonDAOTest")
@@ -115,15 +116,15 @@ class PersonDAOTest {
         assertThat(personDAO.addNewPerson(newPerson)).isTrue();
 
         assertThat(personDAO.getAllPersons().size()).isEqualTo(4);
-        assertThat(personDAO.getPersonByName("Tessa", "Carman")).isInstanceOf(Person.class);
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getId()).isEqualTo(4);
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getFirstName()).isEqualTo("Tessa");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getLastName()).isEqualTo("Carman");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getAddress()).isEqualTo("834 Binoc Ave");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getCity()).isEqualTo("Culver");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getZip()).isEqualTo("97451");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getEmail()).isEqualTo("tenz@email.com");
-        assertThat(personDAO.getPersonByName("Tessa", "Carman").getPhone()).isEqualTo("841-874-6512");
+        assertThat(personDAO.getPersonsById(4)).isInstanceOf(Person.class);
+        assertThat(personDAO.getPersonsById(4).getId()).isEqualTo(4);
+        assertThat(personDAO.getPersonsById(4).getFirstName()).isEqualTo("Tessa");
+        assertThat(personDAO.getPersonsById(4).getLastName()).isEqualTo("Carman");
+        assertThat(personDAO.getPersonsById(4).getAddress()).isEqualTo("834 Binoc Ave");
+        assertThat(personDAO.getPersonsById(4).getCity()).isEqualTo("Culver");
+        assertThat(personDAO.getPersonsById(4).getZip()).isEqualTo("97451");
+        assertThat(personDAO.getPersonsById(4).getEmail()).isEqualTo("tenz@email.com");
+        assertThat(personDAO.getPersonsById(4).getPhone()).isEqualTo("841-874-6512");
 
         assertThat(personDAO.addNewPerson(new Person(0, "", "", "", "", "", "", ""))).isFalse();
         assertThat(personDAO.getAllPersons().size()).isEqualTo(4);
@@ -132,29 +133,29 @@ class PersonDAOTest {
     @Tag("PersonDAOTest")
     @Test
     void updatePerson() {
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd")).isInstanceOf(Person.class);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getId()).isEqualTo(2);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getFirstName()).isEqualTo("Jacob");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getLastName()).isEqualTo("Boyd");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getAddress()).isEqualTo("1509 Culver St");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getCity()).isEqualTo("Culver");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getZip()).isEqualTo("97451");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getEmail()).isEqualTo("drk@email.com");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getPhone()).isEqualTo("841-874-6513");
+        assertThat(personDAO.getPersonsById(2)).isInstanceOf(Person.class);
+        assertThat(personDAO.getPersonsById(2).getId()).isEqualTo(2);
+        assertThat(personDAO.getPersonsById(2).getFirstName()).isEqualTo("Jacob");
+        assertThat(personDAO.getPersonsById(2).getLastName()).isEqualTo("Boyd");
+        assertThat(personDAO.getPersonsById(2).getAddress()).isEqualTo("1509 Culver St");
+        assertThat(personDAO.getPersonsById(2).getCity()).isEqualTo("Culver");
+        assertThat(personDAO.getPersonsById(2).getZip()).isEqualTo("97451");
+        assertThat(personDAO.getPersonsById(2).getEmail()).isEqualTo("drk@email.com");
+        assertThat(personDAO.getPersonsById(2).getPhone()).isEqualTo("841-874-6513");
 
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
 
         assertThat(personDAO.updatePerson(new Person(personDAO.getAllPersons().size() + 1, "Jacob", "Boyd", "834 Binoc Ave", "Culver", "97451", "841-874-6512", "tenz@email.com"))).isTrue();
 
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd")).isInstanceOf(Person.class);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getId()).isEqualTo(2);
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getFirstName()).isEqualTo("Jacob");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getLastName()).isEqualTo("Boyd");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getAddress()).isEqualTo("834 Binoc Ave");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getCity()).isEqualTo("Culver");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getZip()).isEqualTo("97451");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getEmail()).isEqualTo("tenz@email.com");
-        assertThat(personDAO.getPersonByName("Jacob", "Boyd").getPhone()).isEqualTo("841-874-6512");
+        assertThat(personDAO.getPersonsById(2)).isInstanceOf(Person.class);
+        assertThat(personDAO.getPersonsById(2).getId()).isEqualTo(2);
+        assertThat(personDAO.getPersonsById(2).getFirstName()).isEqualTo("Jacob");
+        assertThat(personDAO.getPersonsById(2).getLastName()).isEqualTo("Boyd");
+        assertThat(personDAO.getPersonsById(2).getAddress()).isEqualTo("834 Binoc Ave");
+        assertThat(personDAO.getPersonsById(2).getCity()).isEqualTo("Culver");
+        assertThat(personDAO.getPersonsById(2).getZip()).isEqualTo("97451");
+        assertThat(personDAO.getPersonsById(2).getEmail()).isEqualTo("tenz@email.com");
+        assertThat(personDAO.getPersonsById(2).getPhone()).isEqualTo("841-874-6512");
 
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
 

@@ -14,19 +14,19 @@ public interface PersonDAOInterface {
     void setDatabaseConfig(DatabaseConfig dataBaseConfig);
 
     /**
-     * Get one person profile from allPersons choose by firstName and lastName
+     * Get list of persons profile from allPersons choose by firstName and lastName
      * @param firstName
      * @param lastName
-     * @return One person profile
+     * @return list of persons profile
      */
-    Person getPersonByName(String firstName, String lastName);
+    List<Person> getPersonsByName(String firstName, String lastName);
 
     /**
-     * Get one person profile from allPersons choose by if-d
+     * Get list of persons profile from allPersons choose by id
      * @param id
-     * @return One person profile
+     * @return List of persons profile
      */
-    Person getPersonById(Integer id);
+    Person getPersonsById(Integer id);
 
     /**
      *  Get all persons profiles

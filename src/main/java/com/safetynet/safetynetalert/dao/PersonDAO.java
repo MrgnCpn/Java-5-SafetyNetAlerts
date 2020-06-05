@@ -50,24 +50,25 @@ public class PersonDAO implements PersonDAOInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonByName(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonsByName(String, String)}
      */
     @Override
-    public Person getPersonByName(String firstName, String lastName) {
+    public List<Person> getPersonsByName(String firstName, String lastName) {
+        List<Person> listOfPersons = new ArrayList<>();
         for (int i = 0; i < allPersons.size(); i++) {
             if ((allPersons.get(i).getFirstName().equals(firstName))
                     && (allPersons.get(i).getLastName().equals(lastName))) {
-                return allPersons.get(i);
+                listOfPersons.add(allPersons.get(i));
             }
         }
-        return null;
+        return listOfPersons;
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonById(Integer)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonsById(Integer)}
      */
     @Override
-    public Person getPersonById(Integer id) {
+    public Person getPersonsById(Integer id) {
         for (int i = 0; i < allPersons.size(); i++) {
             if (allPersons.get(i).getId().equals(id)) {
                 return allPersons.get(i);

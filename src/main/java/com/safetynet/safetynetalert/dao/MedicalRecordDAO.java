@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.ZonedDateTime.now;
+
 public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     /**
      * Logger
@@ -83,7 +85,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     public Boolean addNewMedicalRecord(MedicalRecord medicalRecord) {
         Boolean medicalRecordAdded = false;
 
-        if (personDAO.getPersonById(medicalRecord.getId()) != null) {
+        if (personDAO.getPersonsById(medicalRecord.getId()) != null) {
             this.allMedicalRecords.add(medicalRecord);
             medicalRecordAdded =  true;
         }
@@ -159,18 +161,11 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
             for (int i = 0; i < medicalRecords.size(); i++) {
                 JSONObject medicalRecord = (JSONObject) medicalRecords.get(i);
 
-                String firstName = (String) medicalRecord.get("firstName");
-                String lastName = (String) medicalRecord.get("lastName");
                 String birthdate = (String) medicalRecord.get("birthdate");
+                List<String> medications = (List<String>) medicalRecord.get("medications");
+                List<String> allergies = (List<String>) medicalRecord.get("allergies");
 
-                if (personDAO.getPersonByName(firstName, lastName) != null) {
-                    List<String> medications = (List<String>) medicalRecord.get("medications");
-                    List<String> allergies = (List<String>) medicalRecord.get("allergies");
-
-                    allMedicalRecords.add(new MedicalRecord(personDAO.getPersonByName(firstName, lastName).getId(), birthdate, medications, allergies));
-                } else {
-                    logger.error("The medical file of " + firstName + " " + lastName + ", born on " + birthdate + " does not correspond to an existing profile");
-                }
+                allMedicalRecords.add(new MedicalRecord(allMedicalRecords.size() + 1, birthdate, medications, allergies));
             }
             logger.info("All medical records are loaded from data");
         } catch (Exception e) {
