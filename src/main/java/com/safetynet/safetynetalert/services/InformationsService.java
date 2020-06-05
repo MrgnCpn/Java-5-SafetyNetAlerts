@@ -6,6 +6,7 @@ import com.safetynet.safetynetalert.dao.StationDAO;
 import com.safetynet.safetynetalert.interfaces.InformationsServicesInterface;
 import com.safetynet.safetynetalert.models.MedicalRecord;
 import com.safetynet.safetynetalert.models.Person;
+import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -156,81 +157,102 @@ public class InformationsService implements InformationsServicesInterface {
         return data.toString();
     }
 
-    /*
-        http://localhost:8080/fire?address=<address>
-        Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne de pompiers la desservant.
-        La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents médicaux (médicaments, posologie et allergies) de chaque personne.
-    */
-   /*{
-        “address” : "767 Fifth Avenue”,
-        “station” : “1”,
-        “persons” : [
-                {
-                    “firstName” : “John",
-                    “lastName” : "Smith",
-                    “phone” : “123-456-7890”,
-                    “age” : “30”,
-                    “medicalRecords” : {
-                        “medications” : [
-                            “doliprane : 1000mg",
-                            “advil : 200mg”
-                        ],
-                        “allergies” : [
-                            “eggs”,
-                            “peanuts”
-                        ]
-                    }
-                }
-        ]
-    }*/
     /**
      * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllPersonsLivingAtTheAddress(String)}
      */
     @Override
     public String getAllPersonsLivingAtTheAddress(String address) {
         clearData();
+        List<Person> listPersons = this.personDAO.getAllPersons();
+        MedicalRecord personMedicalRecords;
 
+        data.append("{\"address\" : \"" + address + "\",");
+        data.append("\"station\": \"" + stationDAO.getStationByAddress(address).getNumber() + "\",");
+        data.append("\"persons\" : [");
+        for (int i = 0; i < listPersons.size(); i++) {
+            personMedicalRecords = medicalRecordDAO.getMedicalRecord(listPersons.get(i).getId());
 
+            if (listPersons.get(i).getAddress().equals(address)) {
+                data.append("{");
+                data.append("\"firstName\" : \"" + listPersons.get(i).getFirstName() + "\",");
+                data.append("\"lastName\" : \"" + listPersons.get(i).getLastName() + "\",");
+                data.append("\"phone\" : \"" + listPersons.get(i).getPhone() + "\",");
+                data.append("\"birthdate\" : \"" + personMedicalRecords.getBirthdate() + "\",");
+                data.append("\"age\" : \"" + personMedicalRecords.getAge() + "\",");
 
+                data.append("\"medicalRecords\" : {");
+                data.append("\"medications\" : [");
+                for (int j = 0; j < personMedicalRecords.getMedications().size(); j++) {
+                    data.append("\"" + personMedicalRecords.getMedications().get(j) + "\",");
+                }
+                deleteLastComma();
+                data.append("], \"allergies\" : [");
+                for (int j = 0; j < personMedicalRecords.getAllergies().size(); j++) {
+                    data.append("\"" + personMedicalRecords.getAllergies().get(j) + "\",");
+                }
+                deleteLastComma();
+                data.append("]}},");
+            }
+        }
+        deleteLastComma();
+        data.append("]}");
 
         return data.toString();
     }
 
-    /*
-        http://localhost:8080/flood/stations?stations=<a list of station_numbers>
-        Cette url doit retourner une liste de tous les foyers desservis par la caserne. Cette liste doit regrouper les personnes par adresse.
-        Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
-    */
-    /*{
-        “station” : [
-            “number” : “1”,
-            “homes” : [
-                {
-                    “address” : "767 Fifth Avenue”,
-                    “persons” : [
-                        {
-                            “firstName” : “John",
-                            “lastName” : "Smith",
-                            “phone” : “123-456-7890”,
-                            “age” : “30”,
-                            “medicalRecords” : [
-                                “medications” : ["doliprane : 1000mg",“advil : 200mg”],
-                                “allergies” : [ “eggs”, “peanuts” ]
-                            ]
-                        }
-                    ]
-                }
-            ]
-        ]
-    }*/
     /**
-     * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllPersonsServedByTheStation(Integer)}
+     * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllPersonsServedByTheStations(List<Integer>)}
      */
     @Override
-    public String getAllPersonsServedByTheStation(Integer stationNumber) {
+    public String getAllPersonsServedByTheStations(List<Integer> stationNumbers) {
         clearData();
 
+        data.append("{\"station\" : [");
+        for (int i = 0; i < stationNumbers.size(); i++) {
+            List<Station> listStation = stationDAO.getStationByNumber(stationNumbers.get(i));
 
+            data.append("{\"number\" : " + stationNumbers.get(i) + ",");
+            data.append("\"homes\" : [");
+            for (int j = 0; j < listStation.size(); j++) {
+                data.append("{ \"address\" : \"" + listStation.get(j).getAddress() + "\",");
+
+                List<Person> listPersons = this.personDAO.getAllPersons();
+                MedicalRecord personMedicalRecords;
+
+                data.append("\"persons\" : [");
+                for (int k = 0; k < listPersons.size(); k++) {
+                    personMedicalRecords = medicalRecordDAO.getMedicalRecord(listPersons.get(k).getId());
+
+                    if (listPersons.get(k).getAddress().equals(listStation.get(j).getAddress())) {
+                        data.append("{");
+                        data.append("\"firstName\" : \"" + listPersons.get(k).getFirstName() + "\",");
+                        data.append("\"lastName\" : \"" + listPersons.get(k).getLastName() + "\",");
+                        data.append("\"phone\" : \"" + listPersons.get(k).getPhone() + "\",");
+                        data.append("\"birthdate\" : \"" + personMedicalRecords.getBirthdate() + "\",");
+                        data.append("\"age\" : \"" + personMedicalRecords.getAge() + "\",");
+
+                        data.append("\"medicalRecords\" : {");
+                        data.append("\"medications\" : [");
+                        for (int l = 0; l < personMedicalRecords.getMedications().size(); l++) {
+                            data.append("\"" + personMedicalRecords.getMedications().get(l) + "\",");
+                        }
+                        deleteLastComma();
+                        data.append("], \"allergies\" : [");
+                        for (int l = 0; l < personMedicalRecords.getAllergies().size(); l++) {
+                            data.append("\"" + personMedicalRecords.getAllergies().get(l) + "\",");
+                        }
+                        deleteLastComma();
+                        data.append("]}},");
+                    }
+                }
+                deleteLastComma();
+                data.append("]},");
+            }
+            deleteLastComma();
+            data.append("]},");
+        }
+        deleteLastComma();
+        data.append("]}");
 
         return data.toString();
     }
@@ -245,7 +267,6 @@ public class InformationsService implements InformationsServicesInterface {
         MedicalRecord personMedicalRecords;
 
         data.append("{\"persons\" : [");
-
         for (int i = 0; i < listPersons.size(); i++) {
             personMedicalRecords = medicalRecordDAO.getMedicalRecord(listPersons.get(i).getId());
 

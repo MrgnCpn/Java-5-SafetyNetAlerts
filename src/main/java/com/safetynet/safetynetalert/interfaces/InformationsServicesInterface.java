@@ -1,5 +1,7 @@
 package com.safetynet.safetynetalert.interfaces;
 
+import java.util.List;
+
 public interface InformationsServicesInterface {
 
     /**
@@ -25,10 +27,10 @@ public interface InformationsServicesInterface {
 
     /**
      * Get all persons served by the station group by address
-     * @param stationNumber
+     * @param stationNumbers
      * @return String in JSON format
      */
-    String getAllPersonsServedByTheStation(Integer stationNumber);
+    String getAllPersonsServedByTheStations(List<Integer> stationNumbers);
 
     /**
      * Get all phones of persons by station location
