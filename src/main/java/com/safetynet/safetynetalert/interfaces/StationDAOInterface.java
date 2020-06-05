@@ -1,7 +1,6 @@
 package com.safetynet.safetynetalert.interfaces;
 
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
-import com.safetynet.safetynetalert.models.Person;
 import com.safetynet.safetynetalert.models.Station;
 
 import java.util.List;

@@ -2,22 +2,25 @@ package com.safetynet.safetynetalert.interfaces;
 
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 
 public interface DatabaseConfigInterface {
 
     /**
      * Read data.json and cast it in JSONObject data
-     * @throws IOException
-     * @throws ParseException
+     * @return data : JSONObject
      */
-    void openConnection() throws IOException, ParseException;
+    JSONObject openConnection();
+
+    /**
+     * Read data.json and cast it in JSONObject data
+     * @param filepath
+     * @return data : JSONObject
+     */
+    JSONObject openConnection(String filepath);
 
     /**
      * Getter data
-     * @return data : JSoNObject
+     * @return data : JSONObject
      */
     JSONObject getData();
 

@@ -35,7 +35,7 @@ public class StationDAO implements StationDAOInterface {
      * @throws IOException
      * @throws ParseException
      */
-    public StationDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
+    public StationDAO(DatabaseConfig databaseConfig) {
         this.databaseConfig = databaseConfig;
         this.allStations = new ArrayList<>();
         loadData();
@@ -160,13 +160,10 @@ public class StationDAO implements StationDAOInterface {
 
     /**
      * Load data in allStations in constructor
-     * @throws IOException
-     * @throws ParseException
      */
-    private void loadData() throws IOException, ParseException {
-        databaseConfig.openConnection();
+    private void loadData() {
         try {
-            JSONObject data = databaseConfig.getData();
+            JSONObject data = databaseConfig.openConnection();
 
             JSONArray stations = (JSONArray) data.get("firestations");
 

@@ -5,10 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
-import java.io.IOException;
 
 public class DatabaseConfig implements DatabaseConfigInterface {
     /**
@@ -31,12 +29,29 @@ public class DatabaseConfig implements DatabaseConfigInterface {
      * @see com.safetynet.safetynetalert.interfaces.DatabaseConfigInterface {@link #openConnection()}
      */
     @Override
-    public void openConnection() throws IOException, ParseException {
+    public JSONObject openConnection() {
         try (FileReader fileData = new FileReader("src/main/resources/static/data.json")){
             this.data = (JSONObject) new JSONParser().parse(fileData);
             logger.info("Connection open");
+            return this.data;
         } catch (Exception e) {
             logger.error("Connection error");
+            return null;
+        }
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.DatabaseConfigInterface {@link #openConnection(String)}
+     */
+    @Override
+    public JSONObject openConnection(String filePath){
+        try (FileReader fileData = new FileReader(filePath)){
+            this.data = (JSONObject) new JSONParser().parse(fileData);
+            logger.info("Connection open");
+            return this.data;
+        } catch (Exception e) {
+            logger.error("Connection error");
+            return null;
         }
     }
 

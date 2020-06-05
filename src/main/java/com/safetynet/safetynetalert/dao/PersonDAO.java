@@ -35,7 +35,7 @@ public class PersonDAO implements PersonDAOInterface {
      * @throws IOException
      * @throws ParseException
      */
-    public PersonDAO(DatabaseConfig databaseConfig) throws IOException, ParseException {
+    public PersonDAO(DatabaseConfig databaseConfig) {
         this.databaseConfig = databaseConfig;
         this.allPersons = new ArrayList<>();
         loadData();
@@ -170,12 +170,10 @@ public class PersonDAO implements PersonDAOInterface {
 
     /**
      * Load data in allPersons in constructor
-     * @throws IOException
      */
-    private void loadData() throws IOException, ParseException {
-        databaseConfig.openConnection();
+    private void loadData() {
         try {
-            JSONObject data = databaseConfig.getData();
+            JSONObject data = databaseConfig.openConnection();
 
             JSONArray persons = (JSONArray) data.get("persons");
 

@@ -48,7 +48,7 @@ class PersonDAOTest {
 
     @BeforeEach
     void initTest() throws IOException, ParseException {
-        when(databaseConfig.getData()).thenReturn((JSONObject) new JSONParser().parse(this.data.toString()));
+        when(databaseConfig.openConnection()).thenReturn((JSONObject) new JSONParser().parse(this.data.toString()));
         personDAO = new PersonDAO(databaseConfig);
     }
 

@@ -40,7 +40,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @throws IOException
      * @throws ParseException
      */
-    public MedicalRecordDAO(DatabaseConfig databaseConfig, PersonDAO personDAO) throws IOException, ParseException {
+    public MedicalRecordDAO(DatabaseConfig databaseConfig, PersonDAO personDAO){
         this.databaseConfig = databaseConfig;
         this.personDAO = personDAO;
         this.allMedicalRecords = new ArrayList<>();
@@ -149,13 +149,10 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
 
     /**
      * Load data in allMedicalRecords in constructor
-     * @throws IOException
-     * @throws ParseException
      */
-    private void loadData() throws IOException, ParseException {
-        databaseConfig.openConnection();
+    private void loadData() {
         try {
-            JSONObject data = databaseConfig.getData();
+            JSONObject data = databaseConfig.openConnection();
 
             JSONArray medicalRecords = (JSONArray) data.get("medicalrecords");
 
