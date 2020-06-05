@@ -54,7 +54,7 @@ class PersonDAOTest {
 
     @Tag("PersonDAOTest")
     @Test
-    void LoadDataInDAOConstructor() {
+    void loadDataInDAOConstructor() {
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
     }
 

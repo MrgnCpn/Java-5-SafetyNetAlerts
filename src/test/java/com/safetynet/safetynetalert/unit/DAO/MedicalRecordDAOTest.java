@@ -37,7 +37,7 @@ class MedicalRecordDAOTest {
     private static DatabaseConfig databaseConfig;
 
     @BeforeAll
-    static void initTestClass() throws IOException, ParseException {
+    static void initTestClass() {
         data = new StringBuilder();
         data.append("{\"persons\": [");
         data.append("{ \"firstName\":\"John\", \"lastName\":\"Boyd\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6512\", \"email\":\"jaboyd@email.com\" },");
@@ -65,7 +65,7 @@ class MedicalRecordDAOTest {
 
     @Tag("StationDAOTest")
     @Test
-    void LoadDataInDAOConstructor(){
+    void loadDataInDAOConstructor(){
         assertThat(medicalRecordDAO.getAllMedicalRecords().size()).isEqualTo(3);
     }
 

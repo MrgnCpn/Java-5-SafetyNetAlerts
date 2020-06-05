@@ -59,7 +59,7 @@ class StationDAOTest {
 
     @Tag("StationDAOTest")
     @Test
-    void LoadDataInDAOConstructor(){
+    void loadDataInDAOConstructor(){
         assertThat(stationDAO.getAllStations().size()).isEqualTo(5);
     }
 
