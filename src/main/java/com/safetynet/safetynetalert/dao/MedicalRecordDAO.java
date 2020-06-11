@@ -3,6 +3,7 @@ package com.safetynet.safetynetalert.dao;
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface;
 import com.safetynet.safetynetalert.models.MedicalRecord;
+import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -62,9 +63,9 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      */
     @Override
     public MedicalRecord getMedicalRecord(Integer id) {
-        for (int i = 0; i < allMedicalRecords.size(); i++) {
-            if (allMedicalRecords.get(i).getId().equals(id)) {
-                return allMedicalRecords.get(i);
+        for (MedicalRecord iMedicalRecord : allMedicalRecords) {
+            if (iMedicalRecord.getId().equals(id)) {
+                return iMedicalRecord;
             }
         }
         return null;
@@ -82,8 +83,8 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #addNewMedicalRecord(MedicalRecord)}
      */
     @Override
-    public Boolean addNewMedicalRecord(MedicalRecord medicalRecord) {
-        Boolean medicalRecordAdded = false;
+    public boolean addNewMedicalRecord(MedicalRecord medicalRecord) {
+        boolean medicalRecordAdded = false;
 
         if (personDAO.getPersonsById(medicalRecord.getId()) != null) {
             this.allMedicalRecords.add(medicalRecord);
@@ -103,14 +104,14 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #updateMedicalRecord(MedicalRecord)}
      */
     @Override
-    public Boolean updateMedicalRecord(MedicalRecord medicalRecord) {
-        Boolean medicalRecordUpdated = false;
+    public boolean updateMedicalRecord(MedicalRecord medicalRecord) {
+        boolean medicalRecordUpdated = false;
 
-        for (int i = 0; i < allMedicalRecords.size(); i++) {
-            if (allMedicalRecords.get(i).getId().equals(medicalRecord.getId())) {
-                allMedicalRecords.get(i).setBirthdate(medicalRecord.getBirthdate());
-                allMedicalRecords.get(i).setMedications(medicalRecord.getMedications());
-                allMedicalRecords.get(i).setAllergies(medicalRecord.getAllergies());
+        for (MedicalRecord iMedicalRecord : allMedicalRecords) {
+            if (iMedicalRecord.getId().equals(medicalRecord.getId())) {
+                iMedicalRecord.setBirthdate(medicalRecord.getBirthdate());
+                iMedicalRecord.setMedications(medicalRecord.getMedications());
+                iMedicalRecord.setAllergies(medicalRecord.getAllergies());
                 medicalRecordUpdated = true;
                 break;
             }
@@ -129,8 +130,8 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #deleteMedicalRecord(Integer)}
      */
     @Override
-    public Boolean deleteMedicalRecord(Integer id) {
-        Boolean medicalRecordDeleted = false;
+    public boolean deleteMedicalRecord(Integer id) {
+        boolean medicalRecordDeleted = false;
 
         for (int i = 0; i < allMedicalRecords.size(); i++) {
             if (allMedicalRecords.get(i).getId().equals(id)){

@@ -2,6 +2,7 @@ package com.safetynet.safetynetalert.dao;
 
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.interfaces.StationDAOInterface;
+import com.safetynet.safetynetalert.models.Person;
 import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,9 +57,10 @@ public class StationDAO implements StationDAOInterface {
     @Override
     public List<Station> getStationByNumber(Integer number) {
         List<Station> listOfStation = new ArrayList<>();
-        for (int i = 0; i < allStations.size(); i++) {
-            if (allStations.get(i).getNumber().equals(number)) {
-                listOfStation.add(allStations.get(i));
+
+        for (Station iStation : allStations) {
+            if (iStation.getNumber().equals(number)) {
+                listOfStation.add(iStation);
             }
         }
         return listOfStation;
@@ -69,9 +71,9 @@ public class StationDAO implements StationDAOInterface {
      */
     @Override
     public Station getStationByAddress(String address) {
-        for (int i = 0; i < allStations.size(); i++) {
-            if (allStations.get(i).getAddress().equals(address)) {
-                return allStations.get(i);
+        for (Station iStation : allStations) {
+            if (iStation.getAddress().equals(address)) {
+                return iStation;
             }
         }
         return null;
@@ -89,8 +91,8 @@ public class StationDAO implements StationDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #addNewStation(Station)}
      */
     @Override
-    public Boolean addNewStation(Station station) {
-        Boolean stationAdded = false;
+    public boolean addNewStation(Station station) {
+        boolean stationAdded = false;
 
         if (
                 (station.getNumber() > 0)
@@ -114,12 +116,12 @@ public class StationDAO implements StationDAOInterface {
      * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #updateStation(Station)}
      */
     @Override
-    public Boolean updateStation(Station station) {
-        Boolean stationUpdated = false;
+    public boolean updateStation(Station station) {
+        boolean stationUpdated = false;
 
-        for (int i = 0; i < allStations.size(); i++) {
-            if (allStations.get(i).getAddress().equals(station.getAddress())) {
-                allStations.get(i).setNumber(station.getNumber());
+        for (Station iStation : allStations) {
+            if (iStation.getAddress().equals(station.getAddress())) {
+                iStation.setNumber(station.getNumber());
                 stationUpdated = true;
                 break;
             }
@@ -134,18 +136,41 @@ public class StationDAO implements StationDAOInterface {
         return stationUpdated;
     }
 
-   /**
-     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByAddress(String)}
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationMapping(String)}
      */
     @Override
-    public Boolean deleteStationByAddress(String address) {
-        Boolean stationDeleted = false;
+    public boolean deleteStationMapping(String address) {
+        boolean stationDeleted = false;
 
         for (int i = 0; i < allStations.size(); i++) {
             if (allStations.get(i).getAddress().equals(address)) {
                 allStations.remove(i);
                 stationDeleted = true;
                 break;
+            }
+        }
+
+        if (stationDeleted) {
+            logger.info("Station has been deleted");
+        } else {
+            logger.error("Station doesn't exist in stations list and could not be deleted");
+        }
+
+        return stationDeleted;
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.StationDAOInterface {@link #deleteStationByNumber(Integer)}
+     */
+    @Override
+    public boolean deleteStationByNumber(Integer number) {
+        boolean stationDeleted = false;
+
+        for (int i = 0; i < allStations.size(); i++) {
+            if (allStations.get(i).getNumber().equals(number)) {
+                allStations.remove(i);
+                stationDeleted = true;
             }
         }
 
