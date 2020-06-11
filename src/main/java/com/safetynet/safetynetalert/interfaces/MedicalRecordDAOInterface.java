@@ -13,7 +13,6 @@ public interface MedicalRecordDAOInterface {
      */
     void setDatabaseConfig(DatabaseConfig dataBaseConfig);
 
-
     /**
      * Get one medicalRecord from allMedicalRecords choose by person id
      * @param id
@@ -31,17 +30,17 @@ public interface MedicalRecordDAOInterface {
      * Add one new medical record
      * @param medicalRecord
      */
-    Boolean addNewMedicalRecord(MedicalRecord medicalRecord);
+    boolean addNewMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Update one medical record in allMedicalRecords
      * @param medicalRecord
      */
-    Boolean updateMedicalRecord(MedicalRecord medicalRecord);
+    boolean updateMedicalRecord(MedicalRecord medicalRecord);
 
     /**
      * Delete the medical record in allMedicalRecords
      * @param id
      */
-    Boolean deleteMedicalRecord(Integer id);
+    boolean deleteMedicalRecord(Integer id);
 }

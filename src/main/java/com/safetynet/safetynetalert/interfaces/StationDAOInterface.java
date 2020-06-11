@@ -37,18 +37,25 @@ public interface StationDAOInterface {
      * Add one new station
      * @param station
      */
-    Boolean addNewStation(Station station);
+    boolean addNewStation(Station station);
 
     /**
      * Update one station in allStations
      * @param station
      */
-    Boolean updateStation(Station station);
+    boolean updateStation(Station station);
 
 
     /**
-     * Delete the station in allStations
+     * Delete the station mapping
      * @param address
      */
-    Boolean deleteStationByAddress(String address);
+    boolean deleteStationMapping(String address);
+
+    /**
+     * Delete the station in allStations
+     * @param number
+     */
+    boolean deleteStationByNumber(Integer number);
 }
+

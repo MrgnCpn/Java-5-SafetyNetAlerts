@@ -38,18 +38,18 @@ public interface PersonDAOInterface {
      * Add one profile to allPersons
      * @param person
      */
-    Boolean addNewPerson(Person person);
+    boolean addNewPerson(Person person);
 
     /**
      * Update one person profile in allPersons
      * @param person
      */
-    Boolean updatePerson(Person person);
+    boolean updatePerson(Person person);
 
     /**
      * Delete the profile of one person in allPersons
      * @param firstName
      * @param lastName
      */
-    Boolean deletePerson(String firstName, String lastName);
+    boolean deletePerson(String firstName, String lastName);
 }
