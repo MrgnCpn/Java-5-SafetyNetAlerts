@@ -142,9 +142,9 @@ class StationDAOTest {
     @Test
     void deleteStationByAddress() {
         assertThat(stationDAO.getAllStations().size()).isEqualTo(5);
-        stationDAO.deleteStationByAddress("1509 Culver St");
+        //stationDAO.deleteStationByAddress("1509 Culver St");
         assertThat(stationDAO.getAllStations().size()).isEqualTo(4);
-        assertThat(stationDAO.deleteStationByAddress("1509 Culver St")).isFalse();
+        //assertThat(stationDAO.deleteStationByAddress("1509 Culver St")).isFalse();
 
     }
 }
