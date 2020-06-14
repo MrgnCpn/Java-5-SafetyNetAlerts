@@ -248,6 +248,8 @@ public class InformationService implements InformationsServicesInterface {
                         data.append("]}},");
                     }
                 }
+                deleteLastComma(data);
+                data.append("]},");
             }
             deleteLastComma(data);
             data.append("]},");
