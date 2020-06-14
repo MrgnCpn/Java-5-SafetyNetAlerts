@@ -3,7 +3,6 @@ package com.safetynet.safetynetalert.dao;
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface;
 import com.safetynet.safetynetalert.models.MedicalRecord;
-import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -13,8 +12,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.time.ZonedDateTime.now;
 
 public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     /**

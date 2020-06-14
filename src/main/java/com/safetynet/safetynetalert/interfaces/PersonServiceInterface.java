@@ -12,10 +12,11 @@ public interface PersonServiceInterface {
      * @param phone
      * @param email
      */
-    void httpPostPerson(String firstName, String lastName, String address, String city, String zip, String phone, String email);
+    void httpPost(String firstName, String lastName, String address, String city, String zip, String phone, String email);
 
     /**
      * Update person from HTTP PUT
+     * @param id
      * @param firstName
      * @param lastName
      * @param address
@@ -24,12 +25,11 @@ public interface PersonServiceInterface {
      * @param phone
      * @param email
      */
-    void httpPutPerson(String firstName, String lastName, String address, String city, String zip, String phone, String email);
+    void httpPut(Integer id, String firstName, String lastName, String address, String city, String zip, String phone, String email);
 
     /**
      * Delete person from HTTP DELETE
-     * @param firstName
-     * @param lastName
+     * @param id
      */
-    void httpDeletePerson(String firstName, String lastName);
+    void httpDelete(Integer id);
 }

@@ -126,6 +126,7 @@ public class PersonDAO implements PersonDAOInterface {
         for (Person iPerson : allPersons) {
             if ((iPerson.getFirstName().equals(person.getFirstName()))
                     && (iPerson.getLastName().equals(person.getLastName()))
+                    && (iPerson.getId().equals(person.getId()))
             ) {
                 iPerson.setAddress(person.getAddress());
                 iPerson.setCity(person.getCity());
@@ -147,14 +148,14 @@ public class PersonDAO implements PersonDAOInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #deletePerson(String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #deletePerson(Integer)}
      */
     @Override
-    public boolean deletePerson(String firstName, String lastName) {
+    public boolean deletePerson(Integer id) {
         boolean personDeleted = false;
 
         for (int i = 0; i < allPersons.size(); i++) {
-            if ((allPersons.get(i).getFirstName().equals(firstName)) && (allPersons.get(i).getLastName().equals(lastName))){
+            if (allPersons.get(i).getId().equals(id)){
                 allPersons.remove(i);
                 personDeleted = true;
                 break;

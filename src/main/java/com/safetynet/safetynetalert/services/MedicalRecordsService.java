@@ -7,7 +7,7 @@ import com.safetynet.safetynetalert.models.MedicalRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MedicalRecordsService implements MedicalRecordsServiceInterface {
     /**
@@ -33,16 +33,28 @@ public class MedicalRecordsService implements MedicalRecordsServiceInterface {
         this.medicalRecordDAO = medicalRecordDAO;
     }
 
-    public void httpPostMedicalRecord(String firstName, String lastName, String birthdate) {
-        medicalRecordDAO.addNewMedicalRecord(new MedicalRecord(personDAO.getPersonsByName(firstName, lastName).get(0).getId(), birthdate, new ArrayList<>(),new ArrayList<>()));
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordsServiceInterface {@link #httpPost(Integer, String, List, List)}
+     */
+    @Override
+    public void httpPost(Integer id, String birthdate, List<String> medications, List<String> allergies) {
+        medicalRecordDAO.addNewMedicalRecord(new MedicalRecord(id, birthdate, medications, allergies));
     }
 
-    public void httpPutMedicalRecord() {
-
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordsServiceInterface {@link #httpPut(Integer, String, List, List)}
+     */
+    @Override
+    public void httpPut(Integer id, String birthdate, List<String> medications, List<String> allergies) {
+        medicalRecordDAO.updateMedicalRecord(new MedicalRecord(id, birthdate, medications, allergies));
     }
 
-    public void httpDeleteMedicalRecord() {
-
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordsServiceInterface {@link #httpDelete(Integer)}
+     */
+    @Override
+    public void httpDelete(Integer id) {
+        medicalRecordDAO.deleteMedicalRecord(id);
     }
 
 }

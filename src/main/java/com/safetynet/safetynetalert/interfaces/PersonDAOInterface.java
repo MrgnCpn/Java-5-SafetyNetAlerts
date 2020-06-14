@@ -48,8 +48,7 @@ public interface PersonDAOInterface {
 
     /**
      * Delete the profile of one person in allPersons
-     * @param firstName
-     * @param lastName
+     * @param id
      */
-    boolean deletePerson(String firstName, String lastName);
+    boolean deletePerson(Integer id);
 }

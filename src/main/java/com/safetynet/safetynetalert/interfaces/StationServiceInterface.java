@@ -7,24 +7,24 @@ public interface StationServiceInterface {
      * @param stationNumber
      * @param address
      */
-    void httpPostStation(Integer stationNumber, String address);
+    void httpPost(Integer stationNumber, String address);
 
     /**
      * Update station from HTTP PUT
      * @param stationNumber
      * @param address
      */
-    void httpPutStation(Integer stationNumber, String address);
+    void httpPut(Integer stationNumber, String address);
 
     /**
      * Delete station from HTTP DELETE
      * @param stationNumber
      */
-    void httpDeleteStation(Integer stationNumber);
+    void httpDelete(Integer stationNumber);
 
     /**
      * Delete station address from HTTP DELETE
      * @param address
      */
-    void httpDeleteStationMapping(String address);
+    void httpDeleteMapping(String address);
 }

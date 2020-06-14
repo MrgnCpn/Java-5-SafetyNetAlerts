@@ -2,7 +2,6 @@ package com.safetynet.safetynetalert.dao;
 
 import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.interfaces.StationDAOInterface;
-import com.safetynet.safetynetalert.models.Person;
 import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
