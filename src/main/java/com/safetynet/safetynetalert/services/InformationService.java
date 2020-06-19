@@ -87,6 +87,7 @@ public class InformationService implements InformationsServicesInterface {
         data.append("\"adultCount\" : ").append(adultCount).append(",");
         data.append("\"childCount\" : ").append(childCount);
         data.append("}");
+        logger.info("GET : All Persons Served By The Station n°" + stationNumber + " With Count");
         return data.toString();
     }
 
@@ -133,7 +134,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-
+        logger.info("GET : All child for the address : " + address + ", count : " + childCount);
         if (childCount == 0) {
             return null;
         }
@@ -162,6 +163,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
+        logger.info("GET : All Persons Phone By Station Number : " + stationNumber);
         return data.toString();
     }
 
@@ -206,6 +208,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
+        logger.info("GET : All Persons Living At The Address : " + address);
         return data.toString();
     }
 
@@ -264,6 +267,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
+        logger.info("GET : All Persons Served By The Stations : " + stations);
         return data.toString();
     }
 
@@ -310,6 +314,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
+        logger.info("GET : All Complete Profile Of Persons By Name : " + firstName + " " + lastName);
         return data.toString();
     }
 
@@ -330,6 +335,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
+        logger.info("GET : All Persons Email By City : " + city);
         return data.toString();
     }
 
