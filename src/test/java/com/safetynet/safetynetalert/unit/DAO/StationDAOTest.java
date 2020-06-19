@@ -140,11 +140,22 @@ class StationDAOTest {
 
     @Tag("StationDAOTest")
     @Test
-    void deleteStationByAddress() {
+    void deleteStationMapping() {
         assertThat(stationDAO.getAllStations().size()).isEqualTo(5);
-        //stationDAO.deleteStationByAddress("1509 Culver St");
+        stationDAO.deleteStationMapping("1509 Culver St");
         assertThat(stationDAO.getAllStations().size()).isEqualTo(4);
-        //assertThat(stationDAO.deleteStationByAddress("1509 Culver St")).isFalse();
+        assertThat(stationDAO.deleteStationMapping("1509 Culver St")).isFalse();
 
+    }
+
+    @Tag("StationDAOTest")
+    @Test
+    void deleteStationByNumber() {
+        assertThat(stationDAO.getAllStations().size()).isEqualTo(5);
+        stationDAO.deleteStationByNumber(3);
+        assertThat(stationDAO.getAllStations().size()).isEqualTo(2);
+        assertThat(stationDAO.deleteStationByNumber(3)).isFalse();
+        assertThat(stationDAO.deleteStationByNumber(-1)).isFalse();
+        assertThat(stationDAO.deleteStationByNumber(10)).isFalse();
     }
 }

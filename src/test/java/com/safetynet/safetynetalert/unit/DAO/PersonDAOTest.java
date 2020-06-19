@@ -146,7 +146,10 @@ class PersonDAOTest {
 
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
 
-        assertThat(personDAO.updatePerson(new Person(personDAO.getAllPersons().size() + 1, "Jacob", "Boyd", "834 Binoc Ave", "Culver", "97451", "841-874-6512", "tenz@email.com"))).isTrue();
+        assertThat(personDAO.updatePerson(
+                new Person(personDAO.getPersonsById(2).getId(), "Jacob", "Boyd", "834 Binoc Ave", "Culver", "97451", "841-874-6512", "tenz@email.com")
+                )
+        ).isTrue();
 
         assertThat(personDAO.getPersonsById(2)).isInstanceOf(Person.class);
         assertThat(personDAO.getPersonsById(2).getId()).isEqualTo(2);
@@ -161,7 +164,7 @@ class PersonDAOTest {
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
 
         assertThat(personDAO.updatePerson(
-                        new Person(personDAO.getAllPersons().size() + 1, "Tessa", "Carman", "834 Binoc Ave", "Culver", "97451", "841-874-6512", "tenz@email.com")
+                        new Person(personDAO.getPersonsById(2).getId(), "Tessa", "Carman", "834 Binoc Ave", "Culver", "97451", "841-874-6512", "tenz@email.com")
                 )
         ).isFalse();
 
@@ -172,9 +175,10 @@ class PersonDAOTest {
     @Test
     void deletePerson() {
         assertThat(personDAO.getAllPersons().size()).isEqualTo(3);
-        //assertThat(personDAO.deletePerson("Jacob", "Boyd")).isTrue();
+        assertThat(personDAO.deletePerson(2)).isTrue();
         assertThat(personDAO.getAllPersons().size()).isEqualTo(2);
-        //assertThat(personDAO.deletePerson("John", "Smith")).isFalse();
+        assertThat(personDAO.deletePerson(-1)).isFalse();
+        assertThat(personDAO.deletePerson(4)).isFalse();
     }
 
     @AfterEach
