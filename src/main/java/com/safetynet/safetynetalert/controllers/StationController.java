@@ -34,8 +34,9 @@ public class StationController {
 
     @DeleteMapping("/firestation")
     public String delete(@RequestParam(required = true) Integer number, String address){
-        if (address != null) return "{\"message\" : \"" + stationService.httpDeleteMapping(address) + "\"}";
+        System.out.println(number + " " +address);
+        if (address != null && address != "") return "{\"message\" : \"" + stationService.httpDeleteMapping(address) + "\"}";
         else if (number != null) return "{\"message\" : \"" + stationService.httpDelete(number) + "\"}";
-        else return "{\"message\" : \"Error\"}";
+        else throw new NullPointerException();
     }
 }

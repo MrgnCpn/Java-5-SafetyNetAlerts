@@ -83,19 +83,14 @@ class StationControllerTest {
 
     @Tag("StationControllerTest")
     @Test
-    void testDeleteMapping() throws Exception {
+    void testDelete() throws Exception {
         mockMvc.perform(delete(URL + "?number=&address=951 LoneTree Rd"))
                 .andExpect(status().is2xxSuccessful());
 
-        mockMvc.perform(delete(URL))
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Tag("StationControllerTest")
-    @Test
-    void testDeleteStation() throws Exception {
         mockMvc.perform(delete(URL + "?number=1&address="))
                 .andExpect(status().is2xxSuccessful());
+
+        assertThatExceptionOfType(NestedServletException.class).isThrownBy(() -> mockMvc.perform(delete(URL + "?number=&address=")).andReturn());
 
         mockMvc.perform(delete(URL))
                 .andExpect(status().is4xxClientError());
