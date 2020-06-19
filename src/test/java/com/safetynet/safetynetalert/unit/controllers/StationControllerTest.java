@@ -84,20 +84,20 @@ class StationControllerTest {
     @Tag("StationControllerTest")
     @Test
     void testDeleteMapping() throws Exception {
-        mockMvc.perform(delete(URL + "/address/951 LoneTree Rd"))
+        mockMvc.perform(delete(URL + "?number=&address=951 LoneTree Rd"))
                 .andExpect(status().is2xxSuccessful());
 
-        mockMvc.perform(delete(URL + "/address"))
+        mockMvc.perform(delete(URL))
                 .andExpect(status().is4xxClientError());
     }
 
     @Tag("StationControllerTest")
     @Test
     void testDeleteStation() throws Exception {
-        mockMvc.perform(delete(URL + "/stationNumber/1"))
+        mockMvc.perform(delete(URL + "?number=1&address="))
                 .andExpect(status().is2xxSuccessful());
 
-        mockMvc.perform(delete(URL + "/stationNumber"))
+        mockMvc.perform(delete(URL))
                 .andExpect(status().is4xxClientError());
     }
 }

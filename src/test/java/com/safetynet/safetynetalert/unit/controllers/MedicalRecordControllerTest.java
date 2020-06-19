@@ -84,7 +84,7 @@ class MedicalRecordControllerTest {
     @Tag("PersonControllerTest")
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(URL + "/1"))
+        mockMvc.perform(delete(URL + "?id=1"))
                 .andExpect(status().is2xxSuccessful());
 
         mockMvc.perform(delete(URL))

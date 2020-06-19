@@ -32,8 +32,8 @@ public class PersonController {
         return "{\"message\" : \"" + personService.httpPut(person) + "\"}";
     }
 
-    @DeleteMapping("/person/{id}")
-    public String delete(@PathVariable Integer id){
+    @DeleteMapping("/person")
+    public String delete(@RequestParam(required = true) Integer id){
         return "{\"message\" : \"" + personService.httpDelete(id) + "\"}";
     }
 }
