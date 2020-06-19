@@ -6,6 +6,9 @@ import com.safetynet.safetynetalert.models.Station;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class StationService implements StationServiceInterface {
     /**
      * Logger
@@ -29,31 +32,55 @@ public class StationService implements StationServiceInterface {
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPost(Station)}
      */
     @Override
-    public boolean httpPost(Station newStation) {
-        return stationDAO.addNewStation(newStation);
+    public String httpPost(Station newStation) {
+        if (stationDAO.addNewStation(newStation)) {
+            logger.info("New station mapping added, number : " + newStation.getNumber() + ", address : " + newStation.getAddress());
+            return "Station mapping added";
+        } else {
+            logger.error("Station mapping can't be added");
+            return "Error : This Station mapping can't be added";
+        }
     }
     
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPut(Station)}
      */
     @Override
-    public boolean httpPut(Station station) {
-        return stationDAO.updateStation(station);
+    public String httpPut(Station station) {
+        if (stationDAO.updateStation(station)) {
+            logger.info("Station mapping update, number : " + station.getNumber() + ", address : " + station.getAddress());
+            return "Station mapping updated";
+        } else {
+            logger.error("Station mapping can't be updated");
+            return "Error : This Station mapping can't be updated";
+        }
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpDelete(Integer)}
      */
     @Override
-    public boolean httpDelete(Integer stationNumber) {
-        return stationDAO.deleteStationByNumber(stationNumber);
+    public String httpDelete(Integer stationNumber) {
+        if (stationDAO.deleteStationByNumber(stationNumber)) {
+            logger.info("Station n°" + stationNumber + " deleted");
+            return "Station deleted";
+        } else {
+            logger.error("Station can't be deleted");
+            return "Error : This Station can't be deleted";
+        }
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpDeleteMapping(String)}
      */
     @Override
-    public boolean httpDeleteMapping(String address) {
-        return stationDAO.deleteStationMapping(address);
+    public String httpDeleteMapping(String address) {
+        if (stationDAO.deleteStationMapping(address)) {
+            logger.info("Station mapping \"" + address + "\" deleted");
+            return "Station mapping deleted";
+        } else {
+            logger.error("Station mapping can't be deleted");
+            return "Error : This Station mapping can't be deleted";
+        }
     }
 }

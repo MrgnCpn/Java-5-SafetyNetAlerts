@@ -31,7 +31,7 @@ public class AppConfiguration {
 
     @Bean
     public PersonService personService(){
-        return new PersonService(personDAO());
+        return new PersonService(personDAO(), medicalRecordDAO());
     }
 
     @Bean

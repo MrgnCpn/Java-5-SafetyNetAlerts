@@ -8,23 +8,23 @@ public interface StationServiceInterface {
      * Add station from HTTP POST
      * @param newStation
      */
-    boolean httpPost(Station newStation);
+    String httpPost(Station newStation);
 
     /**
      * Update station from HTTP PUT
      * @param station
      */
-    boolean httpPut(Station station);
+    String httpPut(Station station);
 
     /**
      * Delete station from HTTP DELETE
      * @param stationNumber
      */
-    boolean httpDelete(Integer stationNumber);
+    String httpDelete(Integer stationNumber);
 
     /**
      * Delete station address from HTTP DELETE
      * @param address
      */
-    boolean httpDeleteMapping(String address);
+    String httpDeleteMapping(String address);
 }

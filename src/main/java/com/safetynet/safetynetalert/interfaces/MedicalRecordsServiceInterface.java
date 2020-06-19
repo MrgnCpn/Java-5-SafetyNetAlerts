@@ -10,17 +10,17 @@ public interface MedicalRecordsServiceInterface {
      * Add MedicalRecord from HTTP POST
      * @param medicalRecord
      */
-    boolean httpPost(MedicalRecord medicalRecord);
+    String httpPost(MedicalRecord medicalRecord);
 
     /**
      * Update MedicalRecord from HTTP PUT
      * @param medicalRecord
      */
-    boolean httpPut(MedicalRecord medicalRecord);
+    String httpPut(MedicalRecord medicalRecord);
 
     /**
      * Delete MedicalRecord from HTTP DELETE
      * @param id
      */
-    boolean httpDelete(Integer id);
+    String httpDelete(Integer id);
 }

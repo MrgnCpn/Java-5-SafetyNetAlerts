@@ -4,7 +4,10 @@ import com.safetynet.safetynetalert.models.MedicalRecord;
 import com.safetynet.safetynetalert.services.MedicalRecordsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Singleton;
+
 @RestController
+@Singleton
 public class MedicalRecordController {
     /**
      * Service
@@ -21,19 +24,16 @@ public class MedicalRecordController {
 
     @PostMapping("/medicalRecord")
     public String post(@RequestBody MedicalRecord newMedicalRecord){
-        if (medicalRecordsService.httpPost(newMedicalRecord)) return "{\"message\" : \"Medical record added\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + medicalRecordsService.httpPost(newMedicalRecord) + "\"}";
     }
 
     @PutMapping("/medicalRecord")
     public String put(@RequestBody MedicalRecord medicalRecord){
-        if (medicalRecordsService.httpPut(medicalRecord)) return "{\"message\" : \"Medical record updated\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + medicalRecordsService.httpPut(medicalRecord) + "\"}";
     }
 
     @DeleteMapping("/medicalRecord")
     public String delete(@RequestBody Integer id){
-        if (medicalRecordsService.httpDelete(id)) return "{\"message\" : \"Medical record deleted\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + medicalRecordsService.httpDelete(id) + "\"}";
     }
 }

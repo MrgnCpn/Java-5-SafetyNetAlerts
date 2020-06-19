@@ -4,7 +4,10 @@ import com.safetynet.safetynetalert.models.Station;
 import com.safetynet.safetynetalert.services.StationService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Singleton;
+
 @RestController
+@Singleton
 public class StationController {
     /**
      * Service
@@ -21,26 +24,22 @@ public class StationController {
 
     @PostMapping("/firestation")
     public String post(@RequestBody Station newStation){
-        if (stationService.httpPost(newStation)) return "{\"message\" : \"Station added\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + stationService.httpPost(newStation) + "\"}";
     }
 
     @PutMapping("/firestation")
     public String put(@RequestBody Station station){
-        if (stationService.httpPut(station)) return "{\"message\" : \"Station updated\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + stationService.httpPut(station) + "\"}";
     }
 
     @DeleteMapping("/firestation")
     public String delete(@RequestBody Station station){
         if (station.getAddress() != null) {
-            stationService.httpDeleteMapping(station.getAddress());
-            return "{\"message\" : \"Station mapping deleted\"}";
+            return "{\"message\" : \"" + stationService.httpDeleteMapping(station.getAddress()) + "\"}";
         } else if (station.getNumber() != null) {
-            stationService.httpDelete(station.getNumber());
-            return "{\"message\" : \"Station deleted\"}";
+            return "{\"message\" : \"" + stationService.httpDelete(station.getNumber()) + "\"}";
         } else {
-            return "{\"message\" : \"error\"}";
+            return "{\"message\" : \"Error\"}";
         }
     }
 }

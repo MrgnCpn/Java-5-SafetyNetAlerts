@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Singleton;
+
 @RestController
+@Singleton
 public class PersonController {
     /**
      * Service
@@ -25,20 +28,17 @@ public class PersonController {
 
     @PostMapping("/person")
     public String post(@RequestBody Person newPerson){
-        if (personService.httpPost(newPerson)) return "{\"message\" : \"Person added\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + personService.httpPost(newPerson) + "\"}";
     }
 
     @PutMapping("/person")
     public String put(@RequestBody Person person){
-        if (personService.httpPut(person)) return "{\"message\" : \"Person updated\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + personService.httpPut(person) + "\"}";
     }
 
     @DeleteMapping("/person")
     public String delete(@RequestBody Integer id){
-        if (personService.httpDelete(id)) return "{\"message\" : \"Person deleted\"}";
-        else return "{\"message\" : \"error\"}";
+        return "{\"message\" : \"" + personService.httpDelete(id) + "\"}";
     }
 }
 

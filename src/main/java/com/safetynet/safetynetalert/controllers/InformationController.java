@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Singleton;
+
 @RestController
+@Singleton
 public class InformationController {
     /**
      * Service
@@ -21,7 +24,7 @@ public class InformationController {
     }
 
     @GetMapping("/firestation")
-    public String firestation(@RequestParam(required = false) Integer stationNumber){
+    public String fireStation(@RequestParam(required = false) Integer stationNumber){
         return informationService.getAllPersonsServedByTheStationWithCount(stationNumber);
     }
 
