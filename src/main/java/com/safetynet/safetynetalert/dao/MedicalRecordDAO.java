@@ -50,14 +50,6 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #setDatabaseConfig(DatabaseConfig)}
-     */
-    @Override
-    public void setDatabaseConfig(DatabaseConfig dataBaseConfig) {
-        this.databaseConfig = dataBaseConfig;
-    }
-
-    /**
      * @see com.safetynet.safetynetalert.interfaces.MedicalRecordDAOInterface {@link #getMedicalRecord(Integer)}
      */
     @Override

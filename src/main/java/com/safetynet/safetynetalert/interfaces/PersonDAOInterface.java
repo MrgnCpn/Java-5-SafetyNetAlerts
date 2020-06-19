@@ -1,17 +1,10 @@
 package com.safetynet.safetynetalert.interfaces;
 
-import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.models.Person;
 
 import java.util.List;
 
 public interface PersonDAOInterface {
-
-    /**
-     * Set DatabaseConfiguration
-     * @param dataBaseConfig
-     */
-    void setDatabaseConfig(DatabaseConfig dataBaseConfig);
 
     /**
      * Get list of persons profile from allPersons choose by firstName and lastName

@@ -1,17 +1,10 @@
 package com.safetynet.safetynetalert.interfaces;
 
-import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.models.Station;
 
 import java.util.List;
 
 public interface StationDAOInterface {
-
-    /**
-     * Set DatabaseConfiguration
-     * @param dataBaseConfig
-     */
-    void setDatabaseConfig(DatabaseConfig dataBaseConfig);
 
     /**
      * Get one station from allStations choose by station number

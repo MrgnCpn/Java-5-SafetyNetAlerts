@@ -44,14 +44,6 @@ public class PersonDAO implements PersonDAOInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #setDatabaseConfig(DatabaseConfig)}
-     */
-    @Override
-    public void setDatabaseConfig(DatabaseConfig dataBaseConfig) {
-        this.databaseConfig = dataBaseConfig;
-    }
-
-    /**
      * @see com.safetynet.safetynetalert.interfaces.PersonDAOInterface {@link #getPersonsByName(String, String)}
      */
     @Override

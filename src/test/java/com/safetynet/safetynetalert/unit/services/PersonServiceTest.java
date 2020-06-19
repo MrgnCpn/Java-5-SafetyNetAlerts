@@ -38,6 +38,8 @@ class PersonServiceTest {
     @Test
     void httpPost_nullPerson() {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> personService.httpPost(null));
+        person.setPhone(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> personService.httpPost(person));
         verify(personDAO, never()).addNewPerson(any(Person.class));
     }
 
@@ -61,6 +63,8 @@ class PersonServiceTest {
     @Test
     void httpPut_nullPerson() {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> personService.httpPut(null));
+        person.setPhone(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> personService.httpPut(person));
         verify(personDAO, never()).updatePerson(any(Person.class));
     }
 

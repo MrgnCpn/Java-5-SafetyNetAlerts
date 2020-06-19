@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class MedicalRecordsServiceTest {
@@ -29,7 +28,7 @@ class MedicalRecordsServiceTest {
 
     @BeforeEach
     void setUp() {
-        medicalRecord = new MedicalRecord(0, "", new ArrayList<>(), new ArrayList<>());
+        medicalRecord = new MedicalRecord(0, "01/01/2020", new ArrayList<>(), new ArrayList<>());
         medicalRecordsService = new MedicalRecordsService(medicalRecordDAO);
     }
 
@@ -37,6 +36,8 @@ class MedicalRecordsServiceTest {
     @Test
     void httpPost_nullMedicalRecord() {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> medicalRecordsService.httpPost(null));
+        medicalRecord.setBirthdate(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> medicalRecordsService.httpPost(medicalRecord));
         verify(medicalRecordDAO, never()).addNewMedicalRecord(any(MedicalRecord.class));
     }
 
@@ -60,6 +61,8 @@ class MedicalRecordsServiceTest {
     @Test
     void httpPut_nullMedicalRecord() {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> medicalRecordsService.httpPut(null));
+        medicalRecord.setBirthdate(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> medicalRecordsService.httpPut(medicalRecord));
         verify(medicalRecordDAO, never()).updateMedicalRecord(any(MedicalRecord.class));
     }
 

@@ -34,13 +34,15 @@ public class StationService implements StationServiceInterface {
     @Override
     public String httpPost(Station newStation) {
         if (newStation != null) {
-            if (stationDAO.addNewStation(newStation)) {
-                logger.info("New station mapping added, number : " + newStation.getNumber() + ", address : " + newStation.getAddress());
-                return "Station mapping added";
-            } else {
-                logger.error("Station mapping can't be added");
-                return "Error : This Station mapping can't be added";
-            }
+            if (newStation.getNumber() != null && newStation.getAddress() != null) {
+                if (stationDAO.addNewStation(newStation)) {
+                    logger.info("New station mapping added, number : " + newStation.getNumber() + ", address : " + newStation.getAddress());
+                    return "Station mapping added";
+                } else {
+                    logger.error("Station mapping can't be added");
+                    return "Error : This Station mapping can't be added";
+                }
+            } else throw new NullPointerException("Data are not complete");
         } else throw new NullPointerException();
     }
     
@@ -50,13 +52,15 @@ public class StationService implements StationServiceInterface {
     @Override
     public String httpPut(Station station) {
         if (station != null) {
-            if (stationDAO.updateStation(station)) {
-                logger.info("Station mapping update, number : " + station.getNumber() + ", address : " + station.getAddress());
-                return "Station mapping updated";
-            } else {
-                logger.error("Station mapping can't be updated");
-                return "Error : This Station mapping can't be updated";
-            }
+            if (station.getNumber() != null && station.getAddress() != null) {
+                if (stationDAO.updateStation(station)) {
+                    logger.info("Station mapping update, number : " + station.getNumber() + ", address : " + station.getAddress());
+                    return "Station mapping updated";
+                } else {
+                    logger.error("Station mapping can't be updated");
+                    return "Error : This Station mapping can't be updated";
+                }
+            } else throw new NullPointerException("Data are not complete");
         } else throw new NullPointerException();
     }
 

@@ -1,17 +1,10 @@
 package com.safetynet.safetynetalert.interfaces;
 
-import com.safetynet.safetynetalert.configuration.DatabaseConfig;
 import com.safetynet.safetynetalert.models.MedicalRecord;
 
 import java.util.List;
 
 public interface MedicalRecordDAOInterface {
-
-    /**
-     * Set DatabaseConfiguration
-     * @param dataBaseConfig
-     */
-    void setDatabaseConfig(DatabaseConfig dataBaseConfig);
 
     /**
      * Get one medicalRecord from allMedicalRecords choose by person id

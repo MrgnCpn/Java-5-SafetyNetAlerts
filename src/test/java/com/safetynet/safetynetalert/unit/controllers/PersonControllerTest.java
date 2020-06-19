@@ -24,7 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @ComponentScan({"com.safetynet.safetynetalert"})
 class PersonControllerTest {
-    String person = "{\"id\" : 0,\"firstName\":\"Eric\", \"lastName\":\"Cadigan\", \"address\":\"951 LoneTree Rd\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-7458\", \"email\":\"gramps@email.com\"}";
+    String data = "{\"id\" : 0,\"firstName\":\"Eric\", \"lastName\":\"Cadigan\", \"address\":\"951 LoneTree Rd\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-7458\", \"email\":\"gramps@email.com\"}";
+    String URL = "/person";
+
 
     @Autowired
     MockMvc mockMvc;
@@ -33,8 +35,8 @@ class PersonControllerTest {
     @Test
     void testPost() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/person")
-                .accept(MediaType.APPLICATION_JSON).content(person)
+                .post(URL)
+                .accept(MediaType.APPLICATION_JSON).content(data)
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -47,7 +49,7 @@ class PersonControllerTest {
     @Test
     void testPost_emptyBody() {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/person")
+                .post(URL)
                 .accept(MediaType.APPLICATION_JSON).content("{}")
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -58,8 +60,8 @@ class PersonControllerTest {
     @Test
     void testPut() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/person")
-                .accept(MediaType.APPLICATION_JSON).content(person)
+                .put(URL)
+                .accept(MediaType.APPLICATION_JSON).content(data)
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -72,7 +74,7 @@ class PersonControllerTest {
     @Test
     void testPut_emptyBody() {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/person")
+                .put(URL)
                 .accept(MediaType.APPLICATION_JSON).content("{}")
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -81,11 +83,11 @@ class PersonControllerTest {
 
     @Tag("PersonControllerTest")
     @Test
-    void testDelete_emptyBody() throws Exception {
-        mockMvc.perform(delete("/person/1"))
+    void testDelete() throws Exception {
+        mockMvc.perform(delete(URL + "/1"))
                 .andExpect(status().is2xxSuccessful());
 
-        mockMvc.perform(delete("/person"))
+        mockMvc.perform(delete(URL))
                 .andExpect(status().is4xxClientError());
     }
 }

@@ -33,6 +33,8 @@ class StationServiceTest {
     @Test
     void httpPost_nullStation(){
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> stationService.httpPost(null));
+        station.setAddress(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> stationService.httpPost(station));
         verify(stationDAO, never()).addNewStation(any(Station.class));
     }
 
@@ -56,6 +58,8 @@ class StationServiceTest {
     @Test
     void httpPut_nullStation() {
         assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> stationService.httpPut(null));
+        station.setAddress(null);
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> stationService.httpPut(station));
         verify(stationDAO, never()).updateStation(any(Station.class));
     }
 
