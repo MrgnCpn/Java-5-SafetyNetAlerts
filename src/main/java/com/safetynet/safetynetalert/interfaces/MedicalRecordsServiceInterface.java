@@ -8,9 +8,9 @@ public interface MedicalRecordsServiceInterface {
 
     /**
      * Add MedicalRecord from HTTP POST
-     * @param medicalRecord
+     * @param newMedicalRecord
      */
-    String httpPost(MedicalRecord medicalRecord);
+    String httpPost(MedicalRecord newMedicalRecord);
 
     /**
      * Update MedicalRecord from HTTP PUT

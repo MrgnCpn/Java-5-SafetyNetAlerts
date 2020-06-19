@@ -40,14 +40,16 @@ public class PersonService implements PersonServiceInterface {
      */
     @Override
     public String httpPost(Person newPerson) {
-        newPerson.setId(personDAO.getAllPersons().size() + 1);
-        if (personDAO.addNewPerson(newPerson)) {
-            logger.info("New person profile added, id : " + newPerson.getId() + ", name : " + newPerson.getFirstName() + " " + newPerson.getLastName());
-            return "Person added";
-        } else {
-            logger.error("Person can't be added");
-            return "Error : This Person can't be added";
-        }
+        if (newPerson != null) {
+            newPerson.setId(personDAO.getAllPersons().size() + 1);
+            if (personDAO.addNewPerson(newPerson)) {
+                logger.info("New person profile added, id : " + newPerson.getId() + ", name : " + newPerson.getFirstName() + " " + newPerson.getLastName());
+                return "Person added";
+            } else {
+                logger.error("Person can't be added");
+                return "Error : This Person can't be added";
+            }
+        } else throw new NullPointerException();
     }
 
     /**
@@ -55,13 +57,15 @@ public class PersonService implements PersonServiceInterface {
      */
     @Override
     public String httpPut(Person person) {
-        if (personDAO.updatePerson(person)) {
-            logger.info("Person profile n°" + person.getId() + " has been updated");
-            return "Person updated";
-        } else {
-            logger.error("Person profile can't be updated");
-            return "Error : This Person hasn't been updated";
-        }
+        if (person != null) {
+            if (personDAO.updatePerson(person)) {
+                logger.info("Person profile n°" + person.getId() + " has been updated");
+                return "Person updated";
+            } else {
+                logger.error("Person profile can't be updated");
+                return "Error : This Person hasn't been updated";
+            }
+        } else throw new NullPointerException();
     }
 
     /**
@@ -83,7 +87,7 @@ public class PersonService implements PersonServiceInterface {
             resultMsg += " / Person deleted";
         } else {
             logger.error("The person profile n°" + id + " hasn't be deleted");
-            resultMsg += "/ Error : This Person hasn't been deleted";
+            resultMsg += " / Error : This Person hasn't been deleted";
         }
         return resultMsg;
     }
