@@ -18,28 +18,23 @@ class InformationServiceTest {
 
     @BeforeEach
     void initTests(){
-        DatabaseConfig databaseConfig = new DatabaseConfig();
+     /*   DatabaseConfig databaseConfig = new DatabaseConfig();
         PersonDAO personDAO = new PersonDAO(databaseConfig);
         StationDAO stationDAO = new StationDAO(databaseConfig);
         MedicalRecordDAO medicalRecordDAO = new MedicalRecordDAO(databaseConfig, personDAO);
-        informationService = new InformationService(personDAO, stationDAO, medicalRecordDAO);
+        informationService = new InformationService(personDAO, stationDAO, medicalRecordDAO);*/
     }
 
     @Test
     void runIt() {
 
-        System.out.println(informationService.getAllPersonsEmailByCity("Culver"));
-        System.out.println(informationService.getAllCompleteProfileOfPersonsByName("Jacob", "Boyd"));
-        System.out.println(informationService.getAllPersonsPhoneByStationNumber(1));
-        System.out.println(informationService.getAllPersonsServedByTheStationWithCount(3));
-        System.out.println(informationService.getAllChildByAddress("1509 Culver St"));
-        System.out.println(informationService.getAllPersonsLivingAtTheAddress("1509 Culver St"));
-
-
-        List<Integer> num = new ArrayList<>();
-        num.add(3);
-        num.add(4);
-        System.out.println(informationService.getAllPersonsServedByTheStations(num));
+        //System.out.println(informationService.getAllPersonsEmailByCity("Culver"));
+        //System.out.println(informationService.getAllCompleteProfileOfPersonsByName("Jacob", "Boyd"));
+        //System.out.println(informationService.getAllPersonsPhoneByStationNumber(1));
+        //System.out.println(informationService.getAllPersonsServedByTheStationWithCount(3));
+        //System.out.println(informationService.getAllChildByAddress("1509 Culver St"));
+        //System.out.println(informationService.getAllPersonsLivingAtTheAddress("1509 Culver St"));
+        //System.out.println(informationService.getAllPersonsServedByTheStations("3/4"));
 
     }
 }
