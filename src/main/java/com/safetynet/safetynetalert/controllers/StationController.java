@@ -32,14 +32,13 @@ public class StationController {
         return "{\"message\" : \"" + stationService.httpPut(station) + "\"}";
     }
 
-    @DeleteMapping("/firestation")
-    public String delete(@RequestBody Station station){
-        if (station.getAddress() != null) {
-            return "{\"message\" : \"" + stationService.httpDeleteMapping(station.getAddress()) + "\"}";
-        } else if (station.getNumber() != null) {
-            return "{\"message\" : \"" + stationService.httpDelete(station.getNumber()) + "\"}";
-        } else {
-            return "{\"message\" : \"Error\"}";
-        }
+    @DeleteMapping("/firestation/address/{address}")
+    public String deleteMapping(@PathVariable String address){
+        return "{\"message\" : \"" + stationService.httpDeleteMapping(address) + "\"}";
+    }
+
+    @DeleteMapping("/firestation/stationNumber/{number}")
+    public String deleteStation(@PathVariable Integer number){
+        return "{\"message\" : \"" + stationService.httpDelete(number) + "\"}";
     }
 }

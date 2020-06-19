@@ -2,11 +2,7 @@ package com.safetynet.safetynetalert.controllers;
 
 import com.safetynet.safetynetalert.models.Person;
 import com.safetynet.safetynetalert.services.PersonService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Singleton;
 
@@ -27,7 +23,7 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public String post(@RequestBody Person newPerson){
+    public String post(@RequestBody Person newPerson) {
         return "{\"message\" : \"" + personService.httpPost(newPerson) + "\"}";
     }
 
@@ -36,8 +32,8 @@ public class PersonController {
         return "{\"message\" : \"" + personService.httpPut(person) + "\"}";
     }
 
-    @DeleteMapping("/person")
-    public String delete(@RequestBody Integer id){
+    @DeleteMapping("/person/{id}")
+    public String delete(@PathVariable Integer id){
         return "{\"message\" : \"" + personService.httpDelete(id) + "\"}";
     }
 }

@@ -32,8 +32,8 @@ public class MedicalRecordController {
         return "{\"message\" : \"" + medicalRecordsService.httpPut(medicalRecord) + "\"}";
     }
 
-    @DeleteMapping("/medicalRecord")
-    public String delete(@RequestBody Integer id){
+    @DeleteMapping("/medicalRecord/{id}")
+    public String delete(@PathVariable Integer id){
         return "{\"message\" : \"" + medicalRecordsService.httpDelete(id) + "\"}";
     }
 }

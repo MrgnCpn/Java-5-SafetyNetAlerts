@@ -41,14 +41,25 @@ public class PersonService implements PersonServiceInterface {
     @Override
     public String httpPost(Person newPerson) {
         if (newPerson != null) {
-            newPerson.setId(personDAO.getAllPersons().size() + 1);
-            if (personDAO.addNewPerson(newPerson)) {
-                logger.info("New person profile added, id : " + newPerson.getId() + ", name : " + newPerson.getFirstName() + " " + newPerson.getLastName());
-                return "Person added";
-            } else {
-                logger.error("Person can't be added");
-                return "Error : This Person can't be added";
-            }
+            if ((newPerson.getId() != null)
+                && (newPerson.getFirstName() != null)
+                && (newPerson.getLastName() != null)
+                && (newPerson.getAddress() != null)
+                && (newPerson.getZip() != null)
+                && (newPerson.getCity() != null)
+                && (newPerson.getEmail() != null)
+                && (newPerson.getPhone() != null)
+                && (newPerson.getFirstName() != null)
+            ) {
+                newPerson.setId(personDAO.getAllPersons().size() + 1);
+                if (personDAO.addNewPerson(newPerson)) {
+                    logger.info("New person profile added, id : " + newPerson.getId() + ", name : " + newPerson.getFirstName() + " " + newPerson.getLastName());
+                    return "Person added";
+                } else {
+                    logger.error("Person can't be added");
+                    return "Error : This Person can't be added";
+                }
+            } else throw new NullPointerException("Data are not complete");
         } else throw new NullPointerException();
     }
 
@@ -58,13 +69,24 @@ public class PersonService implements PersonServiceInterface {
     @Override
     public String httpPut(Person person) {
         if (person != null) {
-            if (personDAO.updatePerson(person)) {
-                logger.info("Person profile n°" + person.getId() + " has been updated");
-                return "Person updated";
-            } else {
-                logger.error("Person profile can't be updated");
-                return "Error : This Person hasn't been updated";
-            }
+            if ((person.getId() != null)
+                    && (person.getFirstName() != null)
+                    && (person.getLastName() != null)
+                    && (person.getAddress() != null)
+                    && (person.getZip() != null)
+                    && (person.getCity() != null)
+                    && (person.getEmail() != null)
+                    && (person.getPhone() != null)
+                    && (person.getFirstName() != null)
+            ) {
+                if (personDAO.updatePerson(person)) {
+                    logger.info("Person profile n°" + person.getId() + " has been updated");
+                    return "Person updated";
+                } else {
+                    logger.error("Person profile can't be updated");
+                    return "Error : This Person hasn't been updated";
+                }
+            } else throw new NullPointerException("Data are not complete");
         } else throw new NullPointerException();
     }
 
