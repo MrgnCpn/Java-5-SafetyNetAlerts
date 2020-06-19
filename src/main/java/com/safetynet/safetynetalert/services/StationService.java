@@ -26,34 +26,34 @@ public class StationService implements StationServiceInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPost(Integer, String)}
+     * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPost(Station)}
      */
     @Override
-    public void httpPost(Integer stationNumber, String address) {
-        stationDAO.addNewStation(new Station(stationNumber, address));
+    public boolean httpPost(Station newStation) {
+        return stationDAO.addNewStation(newStation);
     }
     
     /**
-     * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPut(Integer, String)}
+     * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpPut(Station)}
      */
     @Override
-    public void httpPut(Integer stationNumber, String address) {
-        stationDAO.updateStation(new Station(stationNumber, address));
+    public boolean httpPut(Station station) {
+        return stationDAO.updateStation(station);
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpDelete(Integer)}
      */
     @Override
-    public void httpDelete(Integer stationNumber) {
-        stationDAO.deleteStationByNumber(stationNumber);
+    public boolean httpDelete(Integer stationNumber) {
+        return stationDAO.deleteStationByNumber(stationNumber);
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.StationServiceInterface {@link #httpDeleteMapping(String)}
      */
     @Override
-    public void httpDeleteMapping(String address) {
-        stationDAO.deleteStationMapping(address);
+    public boolean httpDeleteMapping(String address) {
+        return stationDAO.deleteStationMapping(address);
     }
 }

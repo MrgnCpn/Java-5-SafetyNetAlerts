@@ -198,7 +198,7 @@ public class StationDAO implements StationDAOInterface {
                 allStations.add(new Station(number, address));
             }
 
-            logger.info("All stations are loaded from data");
+            logger.info("Stations are loaded from data");
         } catch (Exception e) {
             logger.error("Data can't be loaded in StationDAO : " + e);
         }

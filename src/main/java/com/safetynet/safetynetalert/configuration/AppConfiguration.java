@@ -1,9 +1,5 @@
 package com.safetynet.safetynetalert.configuration;
 
-import com.safetynet.safetynetalert.controllers.InformationController;
-import com.safetynet.safetynetalert.controllers.MedicalRecordController;
-import com.safetynet.safetynetalert.controllers.PersonController;
-import com.safetynet.safetynetalert.controllers.StationController;
 import com.safetynet.safetynetalert.dao.MedicalRecordDAO;
 import com.safetynet.safetynetalert.dao.PersonDAO;
 import com.safetynet.safetynetalert.dao.StationDAO;

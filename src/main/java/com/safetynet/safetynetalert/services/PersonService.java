@@ -32,28 +32,29 @@ public class PersonService implements PersonServiceInterface {
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonServiceInterface {@link #httpPost(String, String, String, String, String, String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonServiceInterface {@link #httpPost(Person)}
      */
     @Override
-    public void httpPost(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
-        Person newPerson = new Person(personDAO.getAllPersons().size(), firstName, lastName, address, city, zip, phone, email);
-        personDAO.addNewPerson(newPerson);
+    public boolean httpPost(Person person) {
+        person.setId(personDAO.getAllPersons().size() + 1);
+        return personDAO.addNewPerson(person);
     }
 
     /**
-     * @see com.safetynet.safetynetalert.interfaces.PersonServiceInterface {@link #httpPut(Integer, String, String, String, String, String, String, String)}
+     * @see com.safetynet.safetynetalert.interfaces.PersonServiceInterface {@link #httpPut(Person)}
      */
     @Override
-    public void httpPut(Integer id, String firstName, String lastName, String address, String city, String zip, String phone, String email) {
-        personDAO.updatePerson(new Person(id, firstName, lastName, address, city, zip, phone, email));
+    public boolean httpPut(Person person) {
+        return personDAO.updatePerson(person);
     }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.PersonServiceInterface {@link #httpDelete(Integer)}
      */
     @Override
-    public void httpDelete(Integer id) {
-        personDAO.deletePerson(id);
-        medicalRecordDAO.deleteMedicalRecord(id);
+    public boolean httpDelete(Integer id) {
+        if (medicalRecordDAO.deleteMedicalRecord(id)) {
+            return personDAO.deletePerson(id);
+        } else return false;
     }
 }

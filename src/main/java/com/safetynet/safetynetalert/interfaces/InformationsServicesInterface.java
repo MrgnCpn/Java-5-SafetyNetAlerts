@@ -30,7 +30,7 @@ public interface InformationsServicesInterface {
      * @param stationNumbers
      * @return String in JSON format
      */
-    String getAllPersonsServedByTheStations(List<Integer> stationNumbers);
+    String getAllPersonsServedByTheStations(String stationNumbers);
 
     /**
      * Get all phones of persons by station location

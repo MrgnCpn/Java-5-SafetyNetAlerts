@@ -165,7 +165,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
 
                 allMedicalRecords.add(new MedicalRecord(allMedicalRecords.size() + 1, birthdate, medications, allergies));
             }
-            logger.info("All medical records are loaded from data");
+            logger.info("Medical records are loaded from data");
         } catch (Exception e) {
             logger.error("Data can't be loaded in MedicalRecordDAO : " + e);
         }

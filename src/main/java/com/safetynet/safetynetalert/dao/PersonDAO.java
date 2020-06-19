@@ -192,7 +192,7 @@ public class PersonDAO implements PersonDAOInterface {
                 allPersons.add(new Person(allPersons.size() + 1, firstName, lastName, address, city, zip, phone, email));
             }
 
-            logger.info("All persons are loaded from data");
+            logger.info("Persons are loaded from data");
         } catch (Exception e) {
             logger.error("Data can't be loaded in PersonDAO : " + e);
         }

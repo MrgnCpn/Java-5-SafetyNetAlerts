@@ -1,30 +1,30 @@
 package com.safetynet.safetynetalert.interfaces;
 
+import com.safetynet.safetynetalert.models.Station;
+
 public interface StationServiceInterface {
 
     /**
      * Add station from HTTP POST
-     * @param stationNumber
-     * @param address
+     * @param newStation
      */
-    void httpPost(Integer stationNumber, String address);
+    boolean httpPost(Station newStation);
 
     /**
      * Update station from HTTP PUT
-     * @param stationNumber
-     * @param address
+     * @param station
      */
-    void httpPut(Integer stationNumber, String address);
+    boolean httpPut(Station station);
 
     /**
      * Delete station from HTTP DELETE
      * @param stationNumber
      */
-    void httpDelete(Integer stationNumber);
+    boolean httpDelete(Integer stationNumber);
 
     /**
      * Delete station address from HTTP DELETE
      * @param address
      */
-    void httpDeleteMapping(String address);
+    boolean httpDeleteMapping(String address);
 }
