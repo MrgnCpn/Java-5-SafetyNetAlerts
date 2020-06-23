@@ -70,7 +70,7 @@ public class StationService implements StationServiceInterface {
     @Override
     public String httpDelete(Integer stationNumber) {
         if (stationDAO.deleteStationByNumber(stationNumber)) {
-            logger.info("Station n°" + stationNumber + " deleted");
+            logger.info(new StringBuffer("Station n°").append(stationNumber).append(" deleted"));
             return "Station deleted";
         } else {
             logger.error("Station can't be deleted");

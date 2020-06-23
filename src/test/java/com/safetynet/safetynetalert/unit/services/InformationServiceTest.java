@@ -100,7 +100,7 @@ class InformationServiceTest {
         assertThat(stationNumber).isEqualTo(3);
         assertThat(persons.length()).isEqualTo(6);
         assertThat(adultCount).isEqualTo(6);
-        assertThat(childCount).isEqualTo(0);
+        assertThat(childCount).isZero();
     }
 
     @Tag("InformationServiceTest")
@@ -123,7 +123,7 @@ class InformationServiceTest {
 
         assertThat(stationNumber).isEqualTo(3);
         assertThat(persons.length()).isEqualTo(6);
-        assertThat(adultCount).isEqualTo(0);
+        assertThat(adultCount).isZero();
         assertThat(childCount).isEqualTo(6);
     }
 
@@ -155,7 +155,7 @@ class InformationServiceTest {
 
         assertThat(address).isEqualTo("1509 Culver St");
         assertThat(childs.length()).isEqualTo(5);
-        assertThat(adults.length()).isEqualTo(0);
+        assertThat(adults.length()).isZero();
     }
 
     @Tag("InformationServiceTest")

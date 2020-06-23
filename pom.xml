@@ -19,7 +19,7 @@
 		<sonar.projectKey>MrgnCpn_OC-Java-Project-5-SafetyNetAlerts</sonar.projectKey>
 		<sonar.organization>mrgncpn</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>ac694a925bd389921cdb8d8af7dc108469c40c19</sonar.login>
+		<sonar.login>eaff60de830a40a9ada2961d7a518eee5be3a0a3</sonar.login>
 	</properties>
 
 	<dependencies>

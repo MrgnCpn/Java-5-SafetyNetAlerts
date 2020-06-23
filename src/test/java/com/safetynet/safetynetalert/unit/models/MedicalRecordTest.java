@@ -64,7 +64,7 @@ class MedicalRecordTest {
         medicalRecord.setMedications(new ArrayList<>());
         medicalRecord.setAllergies(new ArrayList<>());
 
-        assertThat(medicalRecord.getId()).isEqualTo(0);
+        assertThat(medicalRecord.getId()).isZero();
         assertThat(medicalRecord.getBirthdate()).isEmpty();
         assertThat(medicalRecord.getMedications()).isEmpty();
         assertThat(medicalRecord.getAllergies()).isEmpty();
@@ -75,7 +75,7 @@ class MedicalRecordTest {
     void testAgeReturn(){
         assertThat(medicalRecord.getAge()).isEqualTo(36);
         medicalRecord.setBirthdate("");
-        assertThat(medicalRecord.getAge()).isEqualTo(0);
+        assertThat(medicalRecord.getAge()).isZero();
     }
 
     @AfterEach

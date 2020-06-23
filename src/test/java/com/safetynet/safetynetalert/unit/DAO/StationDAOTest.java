@@ -70,7 +70,7 @@ class StationDAOTest {
         assertThat(stationDAO.getStationByNumber(3).size()).isEqualTo(3);
         assertThat(stationDAO.getStationByNumber(3).get(0).getAddress()).isEqualTo("1509 Culver St");
         assertThat(stationDAO.getStationByNumber(3).get(1).getAddress()).isEqualTo("834 Binoc Ave");
-        assertThat(stationDAO.getStationByNumber(4).size()).isEqualTo(0);
+        assertThat(stationDAO.getStationByNumber(4).size()).isZero();
     }
 
     @Tag("StationDAOTest")

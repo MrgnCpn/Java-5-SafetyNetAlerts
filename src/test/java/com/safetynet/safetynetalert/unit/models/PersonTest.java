@@ -63,7 +63,7 @@ class PersonTest {
         person.setPhone("");
         person.setEmail("");
 
-        assertThat(person.getId()).isEqualTo(0);
+        assertThat(person.getId()).isZero();
         assertThat(person.getFirstName()).isEmpty();
         assertThat(person.getLastName()).isEmpty();
         assertThat(person.getAddress()).isEmpty();

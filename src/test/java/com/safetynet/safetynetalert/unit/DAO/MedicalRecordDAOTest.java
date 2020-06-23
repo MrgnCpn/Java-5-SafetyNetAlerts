@@ -85,11 +85,11 @@ class MedicalRecordDAOTest {
         assertThat(medicalRecordDAO.getMedicalRecord(2).getMedications().get(0)).isEqualTo("pharmacol:5000mg");
         assertThat(medicalRecordDAO.getMedicalRecord(2).getMedications().get(1)).isEqualTo("terazine:10mg");
         assertThat(medicalRecordDAO.getMedicalRecord(2).getMedications().get(2)).isEqualTo("noznazol:250mg");
-        assertThat(medicalRecordDAO.getMedicalRecord(2).getAllergies().size()).isEqualTo(0);
+        assertThat(medicalRecordDAO.getMedicalRecord(2).getAllergies().size()).isZero();
 
         assertThat(medicalRecordDAO.getMedicalRecord(1)).isInstanceOf(MedicalRecord.class);
         assertThat(medicalRecordDAO.getMedicalRecord(3).getBirthdate()).isEqualTo("02/18/2012");
-        assertThat(medicalRecordDAO.getMedicalRecord(3).getMedications().size()).isEqualTo(0);
+        assertThat(medicalRecordDAO.getMedicalRecord(3).getMedications().size()).isZero();
         assertThat(medicalRecordDAO.getMedicalRecord(3).getAllergies().size()).isEqualTo(1);
         assertThat(medicalRecordDAO.getMedicalRecord(3).getAllergies().get(0)).isEqualTo("peanut");
 

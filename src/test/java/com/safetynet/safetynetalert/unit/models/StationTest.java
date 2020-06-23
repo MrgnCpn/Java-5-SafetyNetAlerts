@@ -39,7 +39,7 @@ class StationTest {
         station.setNumber(0);
         station.setAddress("");
 
-        assertThat(station.getNumber()).isEqualTo(0);
+        assertThat(station.getNumber()).isZero();
         assertThat(station.getAddress()).isEmpty();
     }
 
