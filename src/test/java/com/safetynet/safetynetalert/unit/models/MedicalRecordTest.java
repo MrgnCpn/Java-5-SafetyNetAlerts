@@ -70,6 +70,14 @@ class MedicalRecordTest {
         assertThat(medicalRecord.getAllergies()).isEmpty();
     }
 
+    @Tag("MedicalRecordTest")
+    @Test
+    void testAgeReturn(){
+        assertThat(medicalRecord.getAge()).isEqualTo(36);
+        medicalRecord.setBirthdate("");
+        assertThat(medicalRecord.getAge()).isEqualTo(0);
+    }
+
     @AfterEach
     void undefTest(){
         medicalRecord = null;

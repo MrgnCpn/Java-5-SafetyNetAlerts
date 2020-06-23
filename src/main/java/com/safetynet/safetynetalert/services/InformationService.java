@@ -58,7 +58,7 @@ public class InformationService implements InformationsServicesInterface {
         int childCount = 0;
         int adultCount = 0;
         StringBuilder data = new StringBuilder();
-        data.append("{\"station\" : \"" + stationNumber + "\",");
+        data.append("{\"station\" : " + stationNumber + ",");
         data.append("\"persons\" : [");
 
         for (Station iStation : this.stationDAO.getAllStations()){
@@ -71,7 +71,7 @@ public class InformationService implements InformationsServicesInterface {
                         data.append("\"address\" : \"").append(JSONValue.escape(iPerson.getAddress())).append("\",");
                         data.append("\"phone\" : \"").append(JSONValue.escape(iPerson.getPhone())).append("\"");
 
-                        if (medicalRecordDAO.getMedicalRecord(iPerson.getId()).getAge() <= 18) {
+                        if (this.medicalRecordDAO.getMedicalRecord(iPerson.getId()).getAge() <= 18) {
                             childCount ++;
                         } else adultCount ++;
 
@@ -147,7 +147,7 @@ public class InformationService implements InformationsServicesInterface {
     @Override
     public String getAllPersonsPhoneByStationNumber(Integer stationNumber) {
         StringBuilder data = new StringBuilder();
-        data.append("{\"station\": \"").append(stationNumber).append("\",");
+        data.append("{\"station\": ").append(stationNumber).append(",");
         data.append("\"phones\" : [");
 
         for (Station iStation : this.stationDAO.getAllStations()) {
@@ -176,12 +176,12 @@ public class InformationService implements InformationsServicesInterface {
         MedicalRecord personMedicalRecords;
 
         data.append("{\"address\" : \"").append(JSONValue.escape(address)).append("\",");
-        data.append("\"station\": \"").append(stationDAO.getStationByAddress(address).getNumber()).append("\",");
+        data.append("\"station\": ").append(stationDAO.getStationByAddress(address).getNumber()).append(",");
         data.append("\"persons\" : [");
 
         for (Person iPerson : this.personDAO.getAllPersons()) {
-            personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
             if (iPerson.getAddress().equals(address)) {
+                personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
                 data.append("{");
                 data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                 data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
@@ -222,7 +222,7 @@ public class InformationService implements InformationsServicesInterface {
         List<Integer> stationNumbers = new ArrayList<>();
         for(String subStr : Arrays.asList(stations.split("/"))) stationNumbers.add(Integer.valueOf(subStr));
 
-        data.append("{\"station\" : [");
+        data.append("{\"stations\" : [");
         for (Integer iNumStation : stationNumbers) {
             data.append("{\"number\" : ").append(iNumStation).append(",");
             data.append("\"homes\" : [");
@@ -234,9 +234,8 @@ public class InformationService implements InformationsServicesInterface {
 
                 data.append("\"persons\" : [");
                 for (Person iPerson : this.personDAO.getAllPersons()) {
-                    personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
-
                     if (iPerson.getAddress().equals(iStation.getAddress())) {
+                        personMedicalRecords = this.medicalRecordDAO.getMedicalRecord(iPerson.getId());
                         data.append("{");
                         data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                         data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
@@ -282,9 +281,8 @@ public class InformationService implements InformationsServicesInterface {
         data.append("{\"persons\" : [");
 
         for (Person iPerson : this.personDAO.getAllPersons()){
-            personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
-
             if (iPerson.getFirstName().equals(firstName) && iPerson.getLastName().equals(lastName)) {
+                personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
                 data.append("{");
                 data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                 data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");

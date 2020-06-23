@@ -62,11 +62,13 @@ public class MedicalRecord {
      * @return Integer age
      */
     public Integer getAge() {
-        LocalDate birthDate = LocalDate.parse(this.birthdate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        if ((birthDate != null) && (LocalDate.now() != null)) {
-            return Period.between(birthDate, LocalDate.now()).getYears();
-        } else {
-            return 0;
-        }
+        if (this.birthdate != "") {
+            LocalDate birthDate = LocalDate.parse(this.birthdate, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            if ((birthDate != null) && (LocalDate.now() != null)) {
+                return Period.between(birthDate, LocalDate.now()).getYears();
+            } else {
+                return 0;
+            }
+        } else return 0;
     }
 }
