@@ -16,6 +16,10 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>MrgnCpn_OC-Java-Project-5-SafetyNetAlerts</sonar.projectKey>
+		<sonar.organization>mrgncpn</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>ac694a925bd389921cdb8d8af7dc108469c40c19</sonar.login>
 	</properties>
 
 	<dependencies>

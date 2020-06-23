@@ -49,7 +49,6 @@ public class PersonService implements PersonServiceInterface {
                 && (newPerson.getCity() != null)
                 && (newPerson.getEmail() != null)
                 && (newPerson.getPhone() != null)
-                && (newPerson.getFirstName() != null)
             ) {
                 newPerson.setId(personDAO.getAllPersons().size() + 1);
                 if (personDAO.addNewPerson(newPerson)) {
@@ -77,7 +76,6 @@ public class PersonService implements PersonServiceInterface {
                     && (person.getCity() != null)
                     && (person.getEmail() != null)
                     && (person.getPhone() != null)
-                    && (person.getFirstName() != null)
             ) {
                 if (personDAO.updatePerson(person)) {
                     logger.info("Person profile n°" + person.getId() + " has been updated");

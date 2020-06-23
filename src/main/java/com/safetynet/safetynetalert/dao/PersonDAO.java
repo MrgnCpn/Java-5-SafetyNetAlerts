@@ -95,7 +95,6 @@ public class PersonDAO implements PersonDAOInterface {
                 && !person.getCity().isEmpty()
                 && !person.getZip().isEmpty()
                 && !person.getEmail().isEmpty()
-                && !person.getEmail().isEmpty()
                 && !person.getPhone().isEmpty()) {
             this.allPersons.add(person);
             personAdded = true;
