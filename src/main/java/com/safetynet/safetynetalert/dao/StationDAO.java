@@ -193,7 +193,7 @@ public class StationDAO implements StationDAOInterface {
 
             logger.info("Stations are loaded from data");
         } catch (Exception e) {
-            logger.error("Data can't be loaded in StationDAO : " + e);
+            logger.error(new StringBuffer("Data can't be loaded in StationDAO : ").append(e));
         }
         databaseConfig.closeConnection();
     }

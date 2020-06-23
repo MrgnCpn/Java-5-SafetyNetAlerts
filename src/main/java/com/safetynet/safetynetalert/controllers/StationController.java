@@ -15,6 +15,16 @@ public class StationController {
     private StationService stationService;
 
     /**
+     * Begin of return message
+     */
+    private String startReturnMessage = "{\"message\" : \"";
+
+    /**
+     * End of return message
+     */
+    private String endReturnMessage = "\"}";
+
+    /**
      * Constructor
      * @param stationService
      */
@@ -24,19 +34,18 @@ public class StationController {
 
     @PostMapping("/firestation")
     public String post(@RequestBody Station newStation){
-        return "{\"message\" : \"" + stationService.httpPost(newStation) + "\"}";
+        return startReturnMessage + stationService.httpPost(newStation) + endReturnMessage;
     }
 
     @PutMapping("/firestation")
     public String put(@RequestBody Station station){
-        return "{\"message\" : \"" + stationService.httpPut(station) + "\"}";
+        return startReturnMessage + stationService.httpPut(station) + endReturnMessage;
     }
 
     @DeleteMapping("/firestation")
     public String delete(@RequestParam(required = true) Integer number, String address){
-        System.out.println(number + " " +address);
-        if (address != null && !address.equals("")) return "{\"message\" : \"" + stationService.httpDeleteMapping(address) + "\"}";
-        else if (number != null) return "{\"message\" : \"" + stationService.httpDelete(number) + "\"}";
+        if (address != null && !address.equals("")) return startReturnMessage + stationService.httpDeleteMapping(address) + endReturnMessage;
+        else if (number != null) return startReturnMessage + stationService.httpDelete(number) + endReturnMessage;
         else throw new NullPointerException();
     }
 }

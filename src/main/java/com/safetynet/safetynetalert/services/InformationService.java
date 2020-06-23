@@ -87,7 +87,7 @@ public class InformationService implements InformationsServicesInterface {
         data.append("\"adultCount\" : ").append(adultCount).append(",");
         data.append("\"childCount\" : ").append(childCount);
         data.append("}");
-        logger.info("GET : All Persons Served By The Station n°" + stationNumber + " With Count");
+        logger.info(new StringBuffer("GET : All Persons Served By The Station n°").append(stationNumber).append(" With Count"));
         return data.toString();
     }
 
@@ -134,7 +134,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All child for the address : " + address + ", count : " + childCount);
+        logger.info(new StringBuffer("GET : All child for the address : ").append(address).append(", count : ").append(childCount));
         if (childCount == 0) {
             return null;
         }
@@ -163,7 +163,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All Persons Phone By Station Number : " + stationNumber);
+        logger.info(new StringBuffer("GET : All Persons Phone By Station Number : ").append(stationNumber));
         return data.toString();
     }
 
@@ -208,7 +208,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All Persons Living At The Address : " + address);
+        logger.info(new StringBuffer("GET : All Persons Living At The Address : ").append(address));
         return data.toString();
     }
 
@@ -266,7 +266,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All Persons Served By The Stations : " + stations);
+        logger.info(new StringBuffer("GET : All Persons Served By The Stations : ").append(stations));
         return data.toString();
     }
 
@@ -312,7 +312,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All Complete Profile Of Persons By Name : " + firstName + " " + lastName);
+        logger.info(new StringBuffer("GET : All Complete Profile Of Persons By Name : ").append(firstName).append(" ").append(lastName));
         return data.toString();
     }
 
@@ -333,7 +333,7 @@ public class InformationService implements InformationsServicesInterface {
         deleteLastComma(data);
         data.append("]}");
 
-        logger.info("GET : All Persons Email By City : " + city);
+        logger.info(new StringBuffer("GET : All Persons Email By City : ").append(city));
         return data.toString();
     }
 

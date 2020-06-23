@@ -187,7 +187,7 @@ public class PersonDAO implements PersonDAOInterface {
 
             logger.info("Persons are loaded from data");
         } catch (Exception e) {
-            logger.error("Data can't be loaded in PersonDAO : " + e);
+            logger.error(new StringBuffer("Data can't be loaded in PersonDAO : ").append(e));
         }
         databaseConfig.closeConnection();
     }

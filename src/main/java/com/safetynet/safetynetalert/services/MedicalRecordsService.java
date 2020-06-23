@@ -41,7 +41,7 @@ public class MedicalRecordsService implements MedicalRecordsServiceInterface {
                 && (newMedicalRecord.getAllergies() != null)
             ) {
                 if (medicalRecordDAO.addNewMedicalRecord(newMedicalRecord)) {
-                    logger.info("New medical record for person n°" + newMedicalRecord.getId() + " added");
+                    logger.info(new StringBuffer("New medical record for person n°").append(newMedicalRecord.getId()).append(" added"));
                     return "Medical record added";
                 } else {
                     logger.error("Medical record can't be added");
@@ -64,7 +64,7 @@ public class MedicalRecordsService implements MedicalRecordsServiceInterface {
                 && (medicalRecord.getAllergies() != null)
             ) {
                 if (medicalRecordDAO.updateMedicalRecord(medicalRecord)) {
-                    logger.info("Medical record for person n°" + medicalRecord.getId() + " updated");
+                    logger.info(new StringBuffer("Medical record for person n°").append(medicalRecord.getId()).append(" updated"));
                     return "Medical record updated";
                 } else {
                     logger.error("Medical record can't be updated");
@@ -80,7 +80,7 @@ public class MedicalRecordsService implements MedicalRecordsServiceInterface {
     @Override
     public String httpDelete(Integer id) {
         if (medicalRecordDAO.deleteMedicalRecord(id)) {
-            logger.info("Medical record for person n°" + id + " deleted");
+            logger.info(new StringBuffer("Medical record for person n°").append(id).append(" deleted"));
             return "Medical record deleted";
         } else {
             logger.error("Medical record can't be deleted");

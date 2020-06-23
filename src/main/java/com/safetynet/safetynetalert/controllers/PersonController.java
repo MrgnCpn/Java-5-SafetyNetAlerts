@@ -15,6 +15,16 @@ public class PersonController {
     private PersonService personService;
 
     /**
+     * Begin of return message
+     */
+    private String startReturnMessage = "{\"message\" : \"";
+
+    /**
+     * End of return message
+     */
+    private String endReturnMessage = "\"}";
+
+    /**
      * Constructor
      * @param personService
      */
@@ -24,17 +34,17 @@ public class PersonController {
 
     @PostMapping("/person")
     public String post(@RequestBody Person newPerson) {
-        return "{\"message\" : \"" + personService.httpPost(newPerson) + "\"}";
+        return startReturnMessage + personService.httpPost(newPerson) + endReturnMessage;
     }
 
     @PutMapping("/person")
     public String put(@RequestBody Person person){
-        return "{\"message\" : \"" + personService.httpPut(person) + "\"}";
+        return startReturnMessage + personService.httpPut(person) + endReturnMessage;
     }
 
     @DeleteMapping("/person")
     public String delete(@RequestParam(required = true) Integer id){
-        return "{\"message\" : \"" + personService.httpDelete(id) + "\"}";
+        return startReturnMessage + personService.httpDelete(id) + endReturnMessage;
     }
 }
 

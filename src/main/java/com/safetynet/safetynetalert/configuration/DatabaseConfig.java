@@ -23,7 +23,9 @@ public class DatabaseConfig implements DatabaseConfigInterface {
     /**
      * Constructor
      */
-    public DatabaseConfig() { }
+    public DatabaseConfig() {
+        // Constructor empty
+    }
 
     /**
      * @see com.safetynet.safetynetalert.interfaces.DatabaseConfigInterface {@link #openConnection()}

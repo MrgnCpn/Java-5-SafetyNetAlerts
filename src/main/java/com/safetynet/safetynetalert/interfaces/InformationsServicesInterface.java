@@ -1,7 +1,5 @@
 package com.safetynet.safetynetalert.interfaces;
 
-import java.util.List;
-
 public interface InformationsServicesInterface {
 
     /**

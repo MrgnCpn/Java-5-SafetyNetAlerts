@@ -85,7 +85,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
         if(medicalRecordAdded){
             logger.info("Medical record has been added");
         } else {
-            logger.error("The medical record of person n° " + medicalRecord.getId() + ", born on " + medicalRecord.getBirthdate() + " does not correspond to an existing profile");
+            logger.error(new StringBuffer("The medical record of person n° ").append(medicalRecord.getId()).append(", born on ").append(medicalRecord.getBirthdate()).append(" does not correspond to an existing profile"));
         }
 
         return medicalRecordAdded;
@@ -127,7 +127,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
         for (int i = 0; i < allMedicalRecords.size(); i++) {
             if (allMedicalRecords.get(i).getId().equals(id)){
                allMedicalRecords.remove(i);
-                medicalRecordDeleted = true;
+               medicalRecordDeleted = true;
                break;
             }
         }
@@ -161,7 +161,7 @@ public class MedicalRecordDAO implements MedicalRecordDAOInterface {
             }
             logger.info("Medical records are loaded from data");
         } catch (Exception e) {
-            logger.error("Data can't be loaded in MedicalRecordDAO : " + e);
+            logger.error(new StringBuffer("Data can't be loaded in MedicalRecordDAO : ").append(e));
         }
 
         databaseConfig.closeConnection();

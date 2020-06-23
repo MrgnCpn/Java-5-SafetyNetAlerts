@@ -15,6 +15,16 @@ public class MedicalRecordController {
     private MedicalRecordsService medicalRecordsService;
 
     /**
+     * Begin of return message
+     */
+    private String startReturnMessage = "{\"message\" : \"";
+
+    /**
+     * End of return message
+     */
+    private String endReturnMessage = "\"}";
+
+    /**
      * Constructor
      * @param medicalRecordsService
      */
@@ -24,16 +34,16 @@ public class MedicalRecordController {
 
     @PostMapping("/medicalRecord")
     public String post(@RequestBody MedicalRecord newMedicalRecord){
-        return "{\"message\" : \"" + medicalRecordsService.httpPost(newMedicalRecord) + "\"}";
+        return startReturnMessage + medicalRecordsService.httpPost(newMedicalRecord) + endReturnMessage;
     }
 
     @PutMapping("/medicalRecord")
     public String put(@RequestBody MedicalRecord medicalRecord){
-        return "{\"message\" : \"" + medicalRecordsService.httpPut(medicalRecord) + "\"}";
+        return startReturnMessage + medicalRecordsService.httpPut(medicalRecord) + endReturnMessage;
     }
 
     @DeleteMapping("/medicalRecord")
     public String delete(@RequestParam(required = true) Integer id){
-        return "{\"message\" : \"" + medicalRecordsService.httpDelete(id) + "\"}";
+        return startReturnMessage + medicalRecordsService.httpDelete(id) + endReturnMessage;
     }
 }

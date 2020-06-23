@@ -52,7 +52,7 @@ public class PersonService implements PersonServiceInterface {
             ) {
                 newPerson.setId(personDAO.getAllPersons().size() + 1);
                 if (personDAO.addNewPerson(newPerson)) {
-                    logger.info("New person profile added, id : " + newPerson.getId() + ", name : " + newPerson.getFirstName() + " " + newPerson.getLastName());
+                    logger.info(new StringBuffer("New person profile added, id : ").append(newPerson.getId()).append(", name : ").append(newPerson.getFirstName()).append(" ").append(newPerson.getLastName()));
                     return "Person added";
                 } else {
                     logger.error("Person can't be added");
@@ -78,7 +78,7 @@ public class PersonService implements PersonServiceInterface {
                     && (person.getPhone() != null)
             ) {
                 if (personDAO.updatePerson(person)) {
-                    logger.info("Person profile n°" + person.getId() + " has been updated");
+                    logger.info(new StringBuffer("Person profile n°").append(person.getId()).append(" has been updated"));
                     return "Person updated";
                 } else {
                     logger.error("Person profile can't be updated");
@@ -95,18 +95,18 @@ public class PersonService implements PersonServiceInterface {
     public String httpDelete(Integer id) {
         String resultMsg;
         if (medicalRecordDAO.deleteMedicalRecord(id)){
-            logger.info("The medical record of person n°" + id + " has been deleted");
+            logger.info(new StringBuffer("The medical record of person n°").append(id).append(" has been deleted"));
             resultMsg = "Medical record deleted";
         } else {
-            logger.error("The medical record of person n°" + id + " hasn't be deleted");
+            logger.error(new StringBuffer("The medical record of person n°").append(id).append(" hasn't be deleted"));
             resultMsg = "Error : The medical record of this person hasn't be deleted";
         }
 
         if (personDAO.deletePerson(id)) {
-            logger.info("The person profile n°" + id + " has been deleted");
+            logger.info(new StringBuffer("The person profile n°").append(id).append(" has been deleted"));
             resultMsg += " / Person deleted";
         } else {
-            logger.error("The person profile n°" + id + " hasn't be deleted");
+            logger.error(new StringBuffer("The person profile n°").append(id).append(" hasn't be deleted"));
             resultMsg += " / Error : This Person hasn't been deleted";
         }
         return resultMsg;

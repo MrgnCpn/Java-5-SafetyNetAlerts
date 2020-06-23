@@ -36,7 +36,7 @@ public class StationService implements StationServiceInterface {
         if (newStation != null) {
             if (newStation.getNumber() != null && newStation.getAddress() != null) {
                 if (stationDAO.addNewStation(newStation)) {
-                    logger.info("New station mapping added, number : " + newStation.getNumber() + ", address : " + newStation.getAddress());
+                    logger.info(new StringBuffer("New station mapping added, number : ").append(newStation.getNumber()).append(", address : ").append(newStation.getAddress()));
                     return "Station mapping added";
                 } else {
                     logger.error("Station mapping can't be added");
@@ -54,7 +54,7 @@ public class StationService implements StationServiceInterface {
         if (station != null) {
             if (station.getNumber() != null && station.getAddress() != null) {
                 if (stationDAO.updateStation(station)) {
-                    logger.info("Station mapping update, number : " + station.getNumber() + ", address : " + station.getAddress());
+                    logger.info(new StringBuffer("Station mapping update, number : ").append(station.getNumber()).append(", address : ").append(station.getAddress()));
                     return "Station mapping updated";
                 } else {
                     logger.error("Station mapping can't be updated");
@@ -84,7 +84,7 @@ public class StationService implements StationServiceInterface {
     @Override
     public String httpDeleteMapping(String address) {
         if (stationDAO.deleteStationMapping(address)) {
-            logger.info("Station mapping \"" + address + "\" deleted");
+            logger.info(new StringBuffer("Station mapping \"").append(address).append("\" deleted"));
             return "Station mapping deleted";
         } else {
             logger.error("Station mapping can't be deleted");
