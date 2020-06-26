@@ -81,6 +81,48 @@ class InformationServiceTest {
 
     @Tag("InformationServiceTest")
     @Test
+    void test_getAllPersons() throws JSONException {
+        when(personDAO.getAllPersons()).thenReturn(persons);
+        data = informationService.getAllPersons();
+        verify(personDAO, times(1)).getAllPersons();
+
+        assertThat(data).isNotEmpty();
+
+        JSONObject result = new JSONObject(data);
+        JSONArray persons = (JSONArray) result.get("persons");
+        assertThat(persons.length()).isEqualTo(8);
+    }
+
+    @Tag("InformationServiceTest")
+    @Test
+    void test_getAllStations() throws JSONException {
+        when(stationDAO.getAllStations()).thenReturn(stations);
+        data = informationService.getAllFirestations();
+        verify(stationDAO, times(1)).getAllStations();
+
+        assertThat(data).isNotEmpty();
+
+        JSONObject result = new JSONObject(data);
+        JSONArray stations = (JSONArray) result.get("stations");
+        assertThat(stations.length()).isEqualTo(6);
+    }
+
+    @Tag("InformationServiceTest")
+    @Test
+    void test_getAllMedicalRecords() throws JSONException {
+        when(medicalRecordDAO.getAllMedicalRecords()).thenReturn(medicalRecords);
+        data = informationService.getAllMedicalRecords();
+        verify(medicalRecordDAO, times(1)).getAllMedicalRecords();
+
+        assertThat(data).isNotEmpty();
+
+        JSONObject result = new JSONObject(data);
+        JSONArray medicalRecords = (JSONArray) result.get("medicalRecords");
+        assertThat(medicalRecords.length()).isEqualTo(8);
+    }
+
+    @Tag("InformationServiceTest")
+    @Test
     void test_getAllPersonsServedByTheStationWithCount_moreThanEightTeen() throws JSONException {
         when(personDAO.getAllPersons()).thenReturn(persons);
         when(stationDAO.getAllStations()).thenReturn(stations);
@@ -280,7 +322,7 @@ class InformationServiceTest {
         assertThat((String) person.get("email")).isEqualTo("jaboyd@email.com");
         assertThat((String) person.get("phone")).isEqualTo("841-874-6512");
         assertThat((String) person.get("birthdate")).isEqualTo("03/06/1984");
-        assertThat((String) person.get("age")).isEqualTo("36");
+        assertThat((Integer) person.get("age")).isEqualTo(36);
         assertThat(medications.length()).isEqualTo(2);
         assertThat(allergies.length()).isEqualTo(1);
     }

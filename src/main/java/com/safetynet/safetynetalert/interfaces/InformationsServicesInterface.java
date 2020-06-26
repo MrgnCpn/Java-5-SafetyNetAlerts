@@ -3,6 +3,24 @@ package com.safetynet.safetynetalert.interfaces;
 public interface InformationsServicesInterface {
 
     /**
+     * Get list of all persons
+     * @return List of all persons
+     */
+    String getAllPersons();
+
+    /**
+     * Get list of all stations mapping
+     * @return
+     */
+    String getAllFirestations();
+
+    /**
+     * Get list of all medical reords
+     * @return
+     */
+    String getAllMedicalRecords();
+
+    /**
      * Get all persons served by the station with count of child and adults
      * @param stationNumber
      * @return String in JSON format

@@ -23,6 +23,21 @@ public class InformationController {
         this.informationService = informationService;
     }
 
+    @GetMapping("/person")
+    public String person(){
+        return informationService.getAllPersons();
+    }
+
+    @GetMapping("/firestations")
+    public String firestations(){
+        return informationService.getAllFirestations();
+    }
+
+    @GetMapping("/medicalRecords")
+    public String medicalRecords(){
+        return informationService.getAllMedicalRecords();
+    }
+
     @GetMapping("/firestation")
     public String fireStation(@RequestParam(required = false) Integer stationNumber){
         return informationService.getAllPersonsServedByTheStationWithCount(stationNumber);

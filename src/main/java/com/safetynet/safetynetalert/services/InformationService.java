@@ -51,6 +51,88 @@ public class InformationService implements InformationsServicesInterface {
     }
 
     /**
+     * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllPersons()}
+     */
+    @Override
+    public String getAllPersons() {
+        StringBuilder data = new StringBuilder();
+        data.append("{\"persons\" : [");
+
+        for (Person iPerson : this.personDAO.getAllPersons()){
+            data.append("{");
+            data.append("\"id\" : ").append(iPerson.getId()).append(",");
+            data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
+            data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
+            data.append("\"address\" : \"").append(JSONValue.escape(iPerson.getAddress())).append("\",");
+            data.append("\"city\" : \"").append(JSONValue.escape(iPerson.getCity())).append("\",");
+            data.append("\"zip\" : \"").append(JSONValue.escape(iPerson.getZip())).append("\",");
+            data.append("\"email\" : \"").append(JSONValue.escape(iPerson.getEmail())).append("\",");
+            data.append("\"phone\" : \"").append(JSONValue.escape(iPerson.getPhone())).append("\"");
+            data.append("},");
+        }
+
+        deleteLastComma(data);
+        data.append("]}");
+        logger.info(new StringBuffer("GET : All Persons"));
+        return data.toString();
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllFirestations()}
+     */
+    @Override
+    public String getAllFirestations() {
+        StringBuilder data = new StringBuilder();
+        data.append("{\"stations\" : [");
+
+        for (Station iStation : this.stationDAO.getAllStations()){
+            data.append("{");
+            data.append("\"number\" : ").append(iStation.getNumber()).append(",");
+            data.append("\"address\" : \"").append(JSONValue.escape(iStation.getAddress())).append("\"");
+            data.append("},");
+        }
+
+        deleteLastComma(data);
+        data.append("]}");
+        logger.info(new StringBuffer("GET : All Stations"));
+        return data.toString();
+    }
+
+    /**
+     * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllMedicalRecords()}
+     */
+    @Override
+    public String getAllMedicalRecords() {
+        StringBuilder data = new StringBuilder();
+        data.append("{\"medicalRecords\" : [");
+
+        for (MedicalRecord iMedicalRecord : this.medicalRecordDAO.getAllMedicalRecords()){
+            data.append("{");
+            data.append("\"id\" : ").append(iMedicalRecord.getId()).append(",");
+            data.append("\"birthdate\" : \"").append(JSONValue.escape(iMedicalRecord.getBirthdate())).append("\",");
+            data.append("\"age\" : ").append(iMedicalRecord.getAge()).append(",");
+            data.append("\"medicalRecords\" : {");
+            data.append("\"medications\" : [");
+            for (String medication : iMedicalRecord.getMedications()) {
+                data.append("\"").append(JSONValue.escape(medication)).append("\",");
+            }
+            deleteLastComma(data);
+            data.append("], \"allergies\" : [");
+            for (String allergy : iMedicalRecord.getAllergies()) {
+                data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+            }
+            deleteLastComma(data);
+            deleteLastComma(data);
+            data.append("]}},");
+        }
+
+        deleteLastComma(data);
+        data.append("]}");
+        logger.info(new StringBuffer("GET : All Medical Records"));
+        return data.toString();
+    }
+
+    /**
      * @see com.safetynet.safetynetalert.interfaces.InformationsServicesInterface {@link #getAllPersonsServedByTheStationWithCount(Integer)}
      */
     @Override
@@ -110,8 +192,7 @@ public class InformationService implements InformationsServicesInterface {
                 data.append("{");
                 data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                 data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
-                data.append("\"age\" : \"").append(medicalRecordDAO.getMedicalRecord(iPerson.getId()).getAge()).append("\"");
-                data.append("},");
+                data.append("\"age\" : ").append(medicalRecordDAO.getMedicalRecord(iPerson.getId()).getAge()).append("},");
                 childCount ++;
             }
         }
@@ -186,19 +267,22 @@ public class InformationService implements InformationsServicesInterface {
                 data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                 data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
                 data.append("\"phone\" : \"").append(JSONValue.escape(iPerson.getPhone())).append("\",");
-                data.append("\"birthdate\" : \"").append(JSONValue.escape(personMedicalRecords.getBirthdate())).append("\",");
-                data.append("\"age\" : \"").append(personMedicalRecords.getAge()).append("\",");
-
+                data.append("\"birthdate\" : \"").append((personMedicalRecords != null) ? JSONValue.escape(personMedicalRecords.getBirthdate()) : "").append("\",");
+                data.append("\"age\" : ").append((personMedicalRecords != null) ? personMedicalRecords.getAge() : "").append(",");
                 data.append("\"medicalRecords\" : {");
                 data.append("\"medications\" : [");
-                for (String medication : personMedicalRecords.getMedications()) {
-                    data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                if (personMedicalRecords != null) {
+                    for (String medication : personMedicalRecords.getMedications()) {
+                        data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                    }
+                    deleteLastComma(data);
                 }
-                deleteLastComma(data);
                 data.append("], \"allergies\" : [");
-
-                for (String allergy : personMedicalRecords.getAllergies()) {
-                    data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                if (personMedicalRecords != null) {
+                    for (String allergy : personMedicalRecords.getAllergies()) {
+                        data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                    }
+                    deleteLastComma(data);
                 }
                 deleteLastComma(data);
                 data.append("]}},");
@@ -240,20 +324,23 @@ public class InformationService implements InformationsServicesInterface {
                         data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                         data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
                         data.append("\"phone\" : \"").append(JSONValue.escape(iPerson.getPhone())).append("\",");
-                        data.append("\"birthdate\" : \"").append(JSONValue.escape(personMedicalRecords.getBirthdate())).append("\",");
-                        data.append("\"age\" : \"").append(personMedicalRecords.getAge()).append("\",");
-
+                        data.append("\"birthdate\" : \"").append((personMedicalRecords != null) ? JSONValue.escape(personMedicalRecords.getBirthdate()) : "").append("\",");
+                        data.append("\"age\" : ").append((personMedicalRecords != null) ? personMedicalRecords.getAge() : "").append(",");
                         data.append("\"medicalRecords\" : {");
                         data.append("\"medications\" : [");
-                        for (String medication : personMedicalRecords.getMedications()) {
-                            data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                        if (personMedicalRecords != null) {
+                            for (String medication : personMedicalRecords.getMedications()) {
+                                data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                            }
+                            deleteLastComma(data);
                         }
-                        deleteLastComma(data);
                         data.append("], \"allergies\" : [");
-                        for (String allergy : personMedicalRecords.getAllergies()) {
-                            data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                        if (personMedicalRecords != null) {
+                            for (String allergy : personMedicalRecords.getAllergies()) {
+                                data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                            }
+                            deleteLastComma(data);
                         }
-                        deleteLastComma(data);
                         data.append("]}},");
                     }
                 }
@@ -284,6 +371,7 @@ public class InformationService implements InformationsServicesInterface {
             if (iPerson.getFirstName().equals(firstName) && iPerson.getLastName().equals(lastName)) {
                 personMedicalRecords = medicalRecordDAO.getMedicalRecord(iPerson.getId());
                 data.append("{");
+                data.append("\"id\" : ").append(iPerson.getId()).append(",");
                 data.append("\"firstName\" : \"").append(JSONValue.escape(iPerson.getFirstName())).append("\",");
                 data.append("\"lastName\" : \"").append(JSONValue.escape(iPerson.getLastName())).append("\",");
                 data.append("\"address\" : \"").append(JSONValue.escape(iPerson.getAddress())).append("\",");
@@ -291,21 +379,23 @@ public class InformationService implements InformationsServicesInterface {
                 data.append("\"zip\" : \"").append(JSONValue.escape(iPerson.getZip())).append("\",");
                 data.append("\"email\" : \"").append(JSONValue.escape(iPerson.getEmail())).append("\",");
                 data.append("\"phone\" : \"").append(JSONValue.escape(iPerson.getPhone())).append("\",");
-                data.append("\"birthdate\" : \"").append(JSONValue.escape(personMedicalRecords.getBirthdate())).append("\",");
-                data.append("\"age\" : \"").append(personMedicalRecords.getAge()).append("\",");
-
+                data.append("\"birthdate\" : \"").append((personMedicalRecords != null) ? JSONValue.escape(personMedicalRecords.getBirthdate()) : "").append("\",");
+                data.append("\"age\" : ").append((personMedicalRecords != null) ? personMedicalRecords.getAge() : "").append(",");
                 data.append("\"medicalRecords\" : {");
                 data.append("\"medications\" : [");
-                for (String medication : personMedicalRecords.getMedications()) {
-                    data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                if (personMedicalRecords != null) {
+                    for (String medication : personMedicalRecords.getMedications()) {
+                        data.append("\"").append(JSONValue.escape(medication)).append("\",");
+                    }
+                    deleteLastComma(data);
                 }
-                deleteLastComma(data);
                 data.append("], \"allergies\" : [");
-
-                for (String allergy : personMedicalRecords.getAllergies()) {
-                    data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                if (personMedicalRecords != null) {
+                    for (String allergy : personMedicalRecords.getAllergies()) {
+                        data.append("\"").append(JSONValue.escape(allergy)).append("\",");
+                    }
+                    deleteLastComma(data);
                 }
-                deleteLastComma(data);
                 data.append("]}},");
             }
         }
