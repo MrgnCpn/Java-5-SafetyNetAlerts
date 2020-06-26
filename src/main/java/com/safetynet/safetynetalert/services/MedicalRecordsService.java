@@ -36,7 +36,7 @@ public class MedicalRecordsService implements MedicalRecordsServiceInterface {
         if (newMedicalRecord != null) {
             if (
                 (newMedicalRecord.getId() != null)
-                && (newMedicalRecord.getAge() != null)
+                && (newMedicalRecord.getBirthdate() != null)
                 && (newMedicalRecord.getMedications() != null)
                 && (newMedicalRecord.getAllergies() != null)
             ) {
