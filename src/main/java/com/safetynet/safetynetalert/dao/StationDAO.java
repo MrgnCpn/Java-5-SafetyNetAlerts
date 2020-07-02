@@ -163,6 +163,7 @@ public class StationDAO implements StationDAOInterface {
             if (allStations.get(i).getNumber().equals(number)) {
                 allStations.remove(i);
                 stationDeleted = true;
+                i --;
             }
         }
 
