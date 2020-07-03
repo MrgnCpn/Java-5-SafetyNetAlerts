@@ -42,7 +42,7 @@ Backend REST API server for SafetyNet Alert apps
 
 ## ENDPOINTS
 
-# PERSONS :
+### PERSONS :
 	* POST : http://localhost:8080:persons
 		{
 			"id" : 0, // Default 0
@@ -51,13 +51,13 @@ Backend REST API server for SafetyNet Alert apps
 	* PUT : 
 	* DELETE : 
 
-# STATIONS :
+### STATIONS :
 	* POST : 
 	* PUT : 
 	* DELETE : 
 	* DELETE : 
 
-# MEDICAL RECORDS
+### MEDICAL RECORDS
 
 	* POST : 
 	* PUT : 
