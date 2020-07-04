@@ -34,22 +34,31 @@ Backend REST API server for SafetyNet Alert apps
 ## URLS
 	* GET : http://localhost:8080/person
 		Return list of all persons
+		
 	* GET : http://localhost:8080/firestations
 		Return list of all stations
+		
 	* GET : http://localhost:8080/medicalRecords
 		Return list of all medical records
+		
 	* GET : http://localhost:8080/firestation?stationNumber=
 		Return list of all persons served by the station with count of child and adults
+		
 	* GET : http://localhost:8080/childAlert?address=
 		Return list of all child living at this address with all adults
+		
 	* GET : http://localhost:8080/phoneAlert?firestation=
 		Return list of all phones of persons by station location
+		
 	* GET : http://localhost:8080/fire?address=
 		Return list of all informations of persons living at this address with their served station
+		
 	* GET : http://localhost:8080/flood/stations?stations= (List of stations number split by '/' ex : 1/2/3)
 		Return list of all persons served by the station group by address
+		
 	* GET : http://localhost:8080/personInfo?firstName=&lastName=
 		Return list of all informations of persons by name
+		
 	* GET : http://localhost:8080/communityEmail?city=
 		Return list of all emails of persons by city
 
