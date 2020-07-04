@@ -17,15 +17,15 @@ Backend REST API server for SafetyNet Alert apps
 3. Change server port in /src/main/resources/application.properties (Default : server.port=8080)
 **WARNING : if you change server port and use the POSTMAN import file you must change every API urls**
 4. Import in POSTMAN the import file : /PostmanImportFile
-5. Run app : `$ ./mvnw spring-boot:run`
+5. Run app : `./mvnw spring-boot:run`
 
 ## Running App
 
-`$ ./mvnw spring-boot:run`
+`./mvnw spring-boot:run`
 
 ## Testing
 
-`$ mvn test`
+`mvn test`
 
 ## Logging File
 
