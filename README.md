@@ -12,11 +12,12 @@ Backend REST API server for SafetyNet Alert apps
 	
 ## Install Project
 
-1. Import JAVA project in IDE
+1. Import JAVA project on your computer and your IDE
 2. Run `mvn clean site` to generate tests, coverage, and report site
-3. Change server port in /src/main/resources/application.properties (Default : server.port=8080)
+3. Change server port in /src/main/resources/application.properties (Default : `server.port=8080`)
 **WARNING : if you change server port and use the POSTMAN import file you must change every API urls**
 4. Import in POSTMAN the import file : /PostmanImportFile
+5. Install mvn wrapper : `mvn -N io.takari:maven:wrapper` 
 5. Run app : `./mvnw spring-boot:run`
 
 ## Running App
@@ -27,7 +28,7 @@ Backend REST API server for SafetyNet Alert apps
 
 `mvn test`
 
-## Logging File
+## Logs File
 
 `/logs/SafetyNetAlert.log`
 
@@ -133,5 +134,3 @@ Backend REST API server for SafetyNet Alert apps
 		}	
 
 	* DELETE : http://localhost:8080/medicalRecord?id=24
-	
-
