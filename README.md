@@ -86,7 +86,7 @@ You may access to :
 	* HTTP TRACE : http://localhost:8080/actuator/httptrace
 	
 #### PERSONS :
-	* POST : http://localhost:8080:persons
+	* POST : http://localhost:8080/persons
 		{
 		    "id" : 0, // Default
 		    "firstName" : "James",
