@@ -32,6 +32,19 @@ Backend REST API server for SafetyNet Alert apps
 
 `/logs/SafetyNetAlert.log`
 
+## Project documentation and Reports
+
+Open in your browser : `/target/site/index.html
+
+You may access to :
+- Project informations
+- Dependencies
+- Licences
+- Plugins 
+- JaCoCo test coverage report
+- Surefire  test report
+- ...
+
 ## URLS
 	* GET : http://localhost:8080/person
 		Return list of all persons
