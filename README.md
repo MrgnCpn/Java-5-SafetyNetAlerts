@@ -147,3 +147,6 @@ You may access to :
 		}	
 
 	* DELETE : http://localhost:8080/medicalRecord?id=24
+
+## Class Diagram
+![alt text](https://github.com/MrgnCpn/OC-Java-Project-5-SafetyNetAlerts/blob/master/ClassDiagram.jpg)
